@@ -102,28 +102,29 @@ export default function Hero({ onPricingClick }: HeroProps) {
               </span>
             </h1>
 
-            {/* Description */}
+          </div>
+
+          {/* Stats */}
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-6 sm:gap-8">
+              {[
+                { v: "59K",  l: "Sender"   },
+                { v: "200K", l: "VOD"      },
+                { v: "4K",   l: "Ultra HD" },
+              ].map(({ v, l }, i) => (
+                <div key={l} className="flex items-center gap-6 sm:gap-8">
+                  {i > 0 && <div className="w-px h-6 bg-white/15" />}
+                  <div>
+                    <p className="text-xl sm:text-2xl font-black leading-none text-white">{v}</p>
+                    <p className="text-[9px] font-mono uppercase tracking-widest text-white/40 mt-0.5">{l}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
             <p className="text-white/45 text-[11px] sm:text-xs leading-relaxed max-w-sm">
               Über <span className="font-semibold text-white/75">59.000 Live-Sender</span> und{" "}
               <span className="font-semibold text-white/75">200.000+ VOD</span> — sofort auf jedem Gerät, ohne Vertrag.
             </p>
-          </div>
-
-          {/* Stats */}
-          <div className="flex items-center gap-6 sm:gap-8">
-            {[
-              { v: "59K",  l: "Sender"   },
-              { v: "200K", l: "VOD"      },
-              { v: "4K",   l: "Ultra HD" },
-            ].map(({ v, l }, i) => (
-              <div key={l} className="flex items-center gap-6 sm:gap-8">
-                {i > 0 && <div className="w-px h-6 bg-white/15" />}
-                <div>
-                  <p className="text-xl sm:text-2xl font-black leading-none text-white">{v}</p>
-                  <p className="text-[9px] font-mono uppercase tracking-widest text-white/40 mt-0.5">{l}</p>
-                </div>
-              </div>
-            ))}
           </div>
 
           {/* CTA + device pills */}
