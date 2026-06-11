@@ -94,16 +94,13 @@ export default function Hero({ onPricingClick }: HeroProps) {
                 4K-Qualität,
               </span>
               <br />
-              auf all deinen Geräten.
+              <span className="text-[1.6rem] sm:text-3xl md:text-4xl lg:text-5xl leading-[1.08] font-black text-white">
+                Verfolgen Sie die{" "}
+                <span className="serif-display italic font-light text-white/80">Weltmeisterschaft WM</span>{" "}
+                live — überall in Deutschland mit uns.{" "}
+                <span className="serif-display italic text-white/65">Seien Sie dabei!</span>
+              </span>
             </h1>
-
-            {/* WM line */}
-            <p className="text-white/55 text-xs sm:text-sm font-medium leading-snug max-w-sm">
-              Verfolgen Sie die{" "}
-              <span className="serif-display italic text-white/75">Weltmeisterschaft WM</span> live —
-              überall in Deutschland mit uns.{" "}
-              <span className="serif-display italic text-white/60">Seien Sie dabei!</span>
-            </p>
 
             {/* Description */}
             <p className="text-white/45 text-[11px] sm:text-xs leading-relaxed max-w-sm">
@@ -147,6 +144,11 @@ export default function Hero({ onPricingClick }: HeroProps) {
                 Sofortigen Zugang sichern
               </button>
             </div>
+            {/* Displaced tagline */}
+            <p className="text-white/50 text-xs sm:text-sm font-semibold tracking-wide">
+              auf all deinen Geräten.
+            </p>
+
             {/* WM Channel auto-scroll strip */}
             <div className="overflow-hidden -mx-6 sm:-mx-8 md:-mx-10 lg:-mx-12">
                 <div className="animate-scroll flex gap-2.5 px-2">
