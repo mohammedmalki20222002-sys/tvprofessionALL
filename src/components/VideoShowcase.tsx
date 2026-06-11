@@ -6,7 +6,7 @@ export default function VideoShowcase() {
   const [videoFailed, setVideoFailed] = useState(false);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black" style={{ minHeight: "420px" }}>
+    <section className="relative w-full overflow-hidden" style={{ minHeight: "260px" }}>
       {!videoFailed && (
         <video
           src={VIDEO_URL}
@@ -15,32 +15,26 @@ export default function VideoShowcase() {
           muted
           playsInline
           onError={() => setVideoFailed(true)}
-          className="w-full h-auto block max-h-[620px] object-cover"
+          className="w-full h-auto block max-h-[360px] object-cover"
         />
       )}
 
       {videoFailed && (
-        <div
-          className="w-full"
-          style={{
-            minHeight: "420px",
-            background: "linear-gradient(135deg, #0a0a0a 0%, #111827 50%, #0a0a0a 100%)",
-          }}
-        />
+        <div className="w-full" style={{ minHeight: "260px" }} />
       )}
 
-      {/* Dark gradient overlay */}
+      {/* Gradient overlay — dark top-left fade */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.30) 60%, transparent 100%)" }}
+        style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.10) 50%, transparent 100%)" }}
       />
 
-      {/* Titles */}
-      <div className="absolute bottom-0 left-0 right-0 px-6 pb-8 md:px-14 md:pb-12">
-        <h2 className="text-white font-extrabold tracking-tight leading-[1.05] text-3xl sm:text-4xl md:text-6xl">
+      {/* Titles — top left */}
+      <div className="absolute top-0 left-0 px-5 pt-5 md:px-10 md:pt-8">
+        <h2 className="text-white font-extrabold tracking-tight leading-[1.05] text-xl sm:text-2xl md:text-4xl">
           Alles, was Sie brauchen,
           <br />
-          <span className="serif-display font-light italic text-white/75">an einem Ort.</span>
+          <span className="serif-display font-light italic text-white/70">an einem Ort.</span>
         </h2>
       </div>
     </section>
