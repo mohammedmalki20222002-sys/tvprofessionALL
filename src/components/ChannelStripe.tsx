@@ -24,8 +24,28 @@ const DE_CHANNELS = [
   { id: "bein",    name: "beIN Sports",sub: "beIN 1",        logo: "/logos/bein.png",    bg: "#6B0FA8" },
 ];
 
+const WORLD_CHANNELS = [
+  { id: "hbo",       name: "HBO",           sub: "HBO Max",        logo: "/logos/hbo.png",       bg: "#000000" },
+  { id: "cnn",       name: "CNN",           sub: "CNN International", logo: "/logos/cnn.png",    bg: "#CC0000" },
+  { id: "discovery", name: "Discovery",     sub: "Discovery HD",   logo: "/logos/discovery.png", bg: "#003DA5" },
+  { id: "disney",    name: "Disney Channel",sub: "Disney+",        logo: "/logos/disney.png",    bg: "#000B8C" },
+  { id: "natgeo",    name: "Nat Geo",       sub: "National Geographic", logo: "/logos/natgeo.png", bg: "#FFCC00" },
+  { id: "mtv",       name: "MTV",           sub: "MTV Global",     logo: "/logos/mtv.png",       bg: "#000000" },
+  { id: "bloomberg", name: "Bloomberg",     sub: "Bloomberg TV",   logo: "/logos/bloomberg.png", bg: "#1D1D1D" },
+  { id: "cnbc",      name: "CNBC",          sub: "CNBC Business",  logo: "/logos/cnbc.png",      bg: "#003087" },
+  { id: "abc",       name: "ABC",           sub: "ABC HD",         logo: "/logos/abc.png",       bg: "#000B8C" },
+  { id: "nbc",       name: "NBC",           sub: "NBC HD",         logo: "/logos/nbc.png",       bg: "#000000" },
+  { id: "tnt",       name: "TNT",           sub: "TNT Drama",      logo: "/logos/tnt.png",       bg: "#CC0000" },
+  { id: "history",   name: "History",       sub: "History Channel", logo: "/logos/history.png",  bg: "#1A1A1A" },
+  { id: "cartoon",   name: "Cartoon Network",sub: "CN HD",         logo: "/logos/cartoon.png",   bg: "#000000" },
+  { id: "skynews",   name: "Sky News",      sub: "Sky News UK",    logo: "/logos/skynews.png",   bg: "#DA0000" },
+  { id: "france24",  name: "France 24",     sub: "France 24 Int.", logo: "/logos/france24.png",  bg: "#F50000" },
+];
+
 const ROW1 = DE_CHANNELS.slice(0, 10);
 const ROW2 = DE_CHANNELS.slice(10, 20);
+const ROW3 = WORLD_CHANNELS.slice(0, 8);
+const ROW4 = WORLD_CHANNELS.slice(7, 15);
 
 function ChannelCard({ ch }: { ch: typeof DE_CHANNELS[0] }) {
   return (
@@ -57,6 +77,8 @@ function ChannelCard({ ch }: { ch: typeof DE_CHANNELS[0] }) {
 export default function ChannelStripe() {
   const tripled1 = [...ROW1, ...ROW1, ...ROW1];
   const tripled2 = [...ROW2, ...ROW2, ...ROW2];
+  const tripled3 = [...ROW3, ...ROW3, ...ROW3];
+  const tripled4 = [...ROW4, ...ROW4, ...ROW4];
 
   return (
     <section id="channels-section" className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
@@ -89,10 +111,35 @@ export default function ChannelStripe() {
         </div>
 
         {/* Row 2 — scrolls right */}
-        <div className="overflow-hidden -mx-4 md:-mx-6 select-none pointer-events-none">
+        <div className="overflow-hidden -mx-4 md:-mx-6 mb-6 select-none pointer-events-none">
           <div className="animate-scroll-reverse flex gap-3 px-4">
             {tripled2.map((ch, i) => (
               <ChannelCard key={`r2-${ch.id}-${i}`} ch={ch} />
+            ))}
+          </div>
+        </div>
+
+        {/* Divider + worldwide label */}
+        <div className="flex items-center gap-3 mb-5 relative z-10 px-1">
+          <div className="h-px flex-1 bg-white/10" />
+          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/35 shrink-0">🌍 Weltweite Sender</span>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
+
+        {/* Row 3 — worldwide, scrolls left */}
+        <div className="overflow-hidden -mx-4 md:-mx-6 mb-3 select-none pointer-events-none">
+          <div className="animate-scroll flex gap-3 px-4">
+            {tripled3.map((ch, i) => (
+              <ChannelCard key={`r3-${ch.id}-${i}`} ch={ch} />
+            ))}
+          </div>
+        </div>
+
+        {/* Row 4 — worldwide, scrolls right */}
+        <div className="overflow-hidden -mx-4 md:-mx-6 select-none pointer-events-none">
+          <div className="animate-scroll-reverse flex gap-3 px-4">
+            {tripled4.map((ch, i) => (
+              <ChannelCard key={`r4-${ch.id}-${i}`} ch={ch} />
             ))}
           </div>
         </div>
