@@ -147,16 +147,8 @@ export default function Hero({ onPricingClick }: HeroProps) {
                 Sofortigen Zugang sichern
               </button>
             </div>
-            <p className="text-[9px] font-mono text-white/30 tracking-wider uppercase">
-              Kein Vertrag · Sofortiger Zugang
-            </p>
-
             {/* WM Channel auto-scroll strip */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-white/30">
-                ⚽ WM Live-Sender — verfügbar mit uns
-              </p>
-              <div className="overflow-hidden -mx-6 sm:-mx-8 md:-mx-10 lg:-mx-12">
+            <div className="overflow-hidden -mx-6 sm:-mx-8 md:-mx-10 lg:-mx-12">
                 <div className="animate-scroll flex gap-2.5 px-2">
                   {doubled.map((ch, i) => (
                     <div
@@ -200,7 +192,6 @@ export default function Hero({ onPricingClick }: HeroProps) {
                     </div>
                   ))}
                 </div>
-              </div>
             </div>
           </div>
 
