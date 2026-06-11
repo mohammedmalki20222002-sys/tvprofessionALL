@@ -1,303 +1,239 @@
-import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 
 interface LiveSportsProps {
   onPricingClick: () => void;
 }
 
-type CrestShape = "shield" | "round" | "hex";
-
-interface TeamDef {
-  name: string;
-  abbr: string;
-  logoUrl: string;
-  primary: string;
-  secondary: string;
-  accent: string;
-  textColor: string;
-  shape: CrestShape;
-}
-
-// api-sports.io public media CDN for football logos
-const T = (name: string, abbr: string, id: number, p: string, s: string, a: string, t: string): TeamDef =>
-  ({ name, abbr, logoUrl: `https://media.api-sports.io/football/teams/${id}.png`, primary: p, secondary: s, accent: a, textColor: t, shape: "shield" });
-
-const TEAMS: Record<string, TeamDef> = {
-  // ── Bundesliga ──────────────────────────────────────────────────────────────
-  FCB:  T("FC Bayern",         "FCB", 157, "#DC052D", "#0066B2", "#fff",    "#fff"),
-  BVB:  T("Dortmund",          "BVB", 165, "#FDE100", "#222",    "#222",    "#111"),
-  B04:  T("Leverkusen",        "B04", 168, "#CC0000", "#000",    "#fff",    "#fff"),
-  RBL:  T("RB Leipzig",        "RBL", 173, "#CC0000", "#0032A0", "#fff",    "#fff"),
-  SGE:  T("Frankfurt",         "SGE", 169, "#E1000F", "#000",    "#fff",    "#fff"),
-  VFB:  T("VfB Stuttgart",     "VFB", 172, "#E32219", "#fff",    "#fff",    "#fff"),
-  SCF:  T("SC Freiburg",       "SCF", 160, "#CC0000", "#000",    "#fff",    "#fff"),
-  WOB:  T("Wolfsburg",         "WOB", 161, "#65B32E", "#fff",    "#fff",    "#fff"),
-  BMG:  T("M'gladbach",        "BMG", 163, "#000",    "#fff",    "#fff",    "#fff"),
-  FCU:  T("Union Berlin",      "FCU", 176, "#EB1923", "#B2982B", "#fff",    "#fff"),
-  SVW:  T("Werder Bremen",     "SVW", 162, "#1D7042", "#fff",    "#fff",    "#fff"),
-  M05:  T("Mainz 05",          "M05", 164, "#CC0000", "#000",    "#fff",    "#fff"),
-  TSG:  T("Hoffenheim",        "TSG", 167, "#1761A0", "#fff",    "#fff",    "#fff"),
-  KOE:  T("1. FC Köln",        "KOE", 166, "#E3000F", "#fff",    "#fff",    "#fff"),
-  // ── 2. Bundesliga ──────────────────────────────────────────────────────────
-  HSV:  T("Hamburger SV",      "HSV", 180, "#0033A0", "#fff",    "#fff",    "#fff"),
-  S04:  T("Schalke 04",        "S04", 158, "#004D9D", "#FFFFFF", "#fff",    "#fff"),
-  // ── National ──────────────────────────────────────────────────────────────
-  DFB:  T("Deutschland",       "DFB",  25, "#000",    "#CC0000", "#FFCE00", "#FFCE00"),
-  FRA:  T("Frankreich",        "FRA",   2, "#002395", "#ED2939", "#fff",    "#fff"),
-  ENG:  T("England",           "ENG",   9, "#CF142B", "#fff",    "#CF142B", "#fff"),
-  // ── Champions League ───────────────────────────────────────────────────────
-  RM:   T("Real Madrid",       "RM",  541, "#F5F5F5", "#1A1A70", "#C8A400", "#1A1A70"),
-  PSG:  T("PSG",               "PSG",  85, "#001A5E", "#D00027", "#fff",    "#fff"),
-  MCI:  T("Man City",          "MCI",  50, "#6CABDD", "#1C2C5B", "#fff",    "#fff"),
-  // ── Non-football ───────────────────────────────────────────────────────────
-  GP:   { name: "Nürburgring",    abbr: "F1",  logoUrl: "", primary: "#E8002D", secondary: "#15151E", accent: "#00D2BE", textColor: "#fff",    shape: "hex" },
-  FP:   { name: "Qualifying",     abbr: "Q3",  logoUrl: "", primary: "#15151E", secondary: "#444",    accent: "#E8002D", textColor: "#ddd",    shape: "hex" },
-  RFI:  { name: "Rhein Fire",     abbr: "RFI", logoUrl: "", primary: "#C8102E", secondary: "#B8860B", accent: "#111",    textColor: "#fff",    shape: "shield" },
-  VIK:  { name: "Vienna Vikings", abbr: "VIK", logoUrl: "", primary: "#003882", secondary: "#FDB927", accent: "#003882", textColor: "#FDB927", shape: "shield" },
-  ALB:  { name: "ALBA Berlin",    abbr: "ALB", logoUrl: "", primary: "#004B98", secondary: "#00A9E0", accent: "#fff",    textColor: "#fff",    shape: "round" },
-  FCB2: { name: "Bayern Bball",   abbr: "FCB", logoUrl: "", primary: "#DC052D", secondary: "#0066B2", accent: "#fff",    textColor: "#fff",    shape: "round" },
-  AZ:   { name: "A. Zverev",      abbr: "AZ",  logoUrl: "", primary: "#000",    secondary: "#CC0000", accent: "#FFCC00", textColor: "#FFCC00", shape: "round" },
-  CA:   { name: "C. Alcaraz",     abbr: "CA",  logoUrl: "", primary: "#AA151B", secondary: "#F1BF00", accent: "#fff",    textColor: "#fff",    shape: "round" },
-  UFC:  { name: "UFC Fight Night", abbr: "UFC", logoUrl: "", primary: "#D20A0A", secondary: "#111",   accent: "#fff",    textColor: "#fff",    shape: "hex" },
-  MUC:  { name: "München Arena",  abbr: "MUC", logoUrl: "", primary: "#1a1a2e", secondary: "#555",    accent: "#fff",    textColor: "#aaa",    shape: "hex" },
-};
-
-// ─── SVG Crest ────────────────────────────────────────────────────────────────
-function SvgCrest({ t }: { t: TeamDef }) {
-  if (t.shape === "shield") {
-    return (
-      <svg viewBox="0 0 40 46" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 2 L4 8 V22 C4 33 11 40.5 20 43.5 C29 40.5 36 33 36 22 V8 Z" fill={t.primary} />
-        <path d="M20 2 L4 8 V22 C4 33 11 40.5 20 43.5 C29 40.5 36 33 36 22 V8 Z" fill="none" stroke={t.secondary} strokeWidth="2.2" />
-        <path d="M20 5.5 L7 10.5 V22 C7 31 12.5 37.5 20 40 C27.5 37.5 33 31 33 22 V10.5 Z" fill="none" stroke={t.accent} strokeWidth="0.7" opacity="0.35" />
-        <text x="20" y="28" textAnchor="middle" fontSize={t.abbr.length > 2 ? "8.5" : "11"} fontWeight="900"
-          fill={t.textColor} fontFamily="Arial Black, Arial, sans-serif" letterSpacing="-0.5">{t.abbr}</text>
-      </svg>
-    );
-  }
-  if (t.shape === "hex") {
-    return (
-      <svg viewBox="0 0 40 40" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="14,3 26,3 37,14 37,26 26,37 14,37 3,26 3,14" fill={t.primary} stroke={t.secondary} strokeWidth="1.8" />
-        <polygon points="14,3 26,3 37,14 37,26 26,37 14,37 3,26 3,14" fill="none" stroke={t.accent} strokeWidth="0.6" opacity="0.3" transform="scale(0.88) translate(2.5,2.5)" />
-        <text x="20" y="25" textAnchor="middle" fontSize={t.abbr.length > 2 ? "8" : "10"} fontWeight="900"
-          fill={t.textColor} fontFamily="Arial Black, Arial, sans-serif" letterSpacing="-0.5">{t.abbr}</text>
-      </svg>
-    );
-  }
+// ── Inline SVG brand logos for platforms without downloadable PNGs ──────────
+function NetflixLogo() {
   return (
-    <svg viewBox="0 0 40 40" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="18" fill={t.primary} />
-      <circle cx="20" cy="20" r="18" fill="none" stroke={t.secondary} strokeWidth="2.2" />
-      <circle cx="20" cy="20" r="13" fill="none" stroke={t.accent} strokeWidth="0.6" opacity="0.3" />
-      <rect x="2" y="17" width="36" height="6" fill={t.secondary} opacity="0.12" />
-      <text x="20" y="25" textAnchor="middle" fontSize={t.abbr.length > 2 ? "8.5" : "11"} fontWeight="900"
-        fill={t.textColor} fontFamily="Arial Black, Arial, sans-serif" letterSpacing="-0.5">{t.abbr}</text>
+    <svg viewBox="0 0 24 32" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="24" height="32" fill="#E50914" />
+      <text x="12" y="24" textAnchor="middle" fontSize="22" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">N</text>
     </svg>
   );
 }
 
-// SVG crest shown instantly; real logo fades in on top if it loads
-function TeamBadge({ id }: { id: string }) {
-  const team = TEAMS[id] ?? { name: id, abbr: id.slice(0,3), logoUrl: "", primary: "#014E45", secondary: "#fff", accent: "#fff", textColor: "#fff", shape: "shield" as CrestShape };
-  const [loaded, setLoaded]   = useState(false);
-  const [failed, setFailed]   = useState(false);
-  const showReal = !!team.logoUrl && loaded && !failed;
-
+function PrimeLogo() {
   return (
-    <div className="flex flex-col items-center gap-1 flex-1">
-      <div className="w-9 h-9 shrink-0 relative">
-        <div className={`absolute inset-0 transition-opacity duration-300 ${showReal ? "opacity-0" : "opacity-100"}`}>
-          <SvgCrest t={team as TeamDef} />
-        </div>
-        {team.logoUrl && !failed && (
-          <img src={team.logoUrl} alt={team.name}
-            className={`absolute inset-0 w-full h-full object-contain p-0.5 transition-opacity duration-300 ${showReal ? "opacity-100" : "opacity-0"}`}
-            onLoad={() => setLoaded(true)} onError={() => setFailed(true)} />
+    <svg viewBox="0 0 80 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="30" rx="4" fill="#00A8E0" />
+      <text x="40" y="13" textAnchor="middle" fontSize="9" fontWeight="700" fill="white" fontFamily="Arial">prime</text>
+      <text x="40" y="24" textAnchor="middle" fontSize="7" fontWeight="400" fill="white" fontFamily="Arial">video</text>
+    </svg>
+  );
+}
+
+function MaxLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#002BE7" />
+      <text x="30" y="21" textAnchor="middle" fontSize="16" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">max</text>
+    </svg>
+  );
+}
+
+function AppleTVLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#000000" />
+      <text x="30" y="13" textAnchor="middle" fontSize="7" fontWeight="400" fill="white" fontFamily="Arial"> Apple</text>
+      <text x="30" y="23" textAnchor="middle" fontSize="7" fontWeight="700" fill="white" fontFamily="Arial">TV+</text>
+    </svg>
+  );
+}
+
+function HuluLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#1CE783" />
+      <text x="30" y="21" textAnchor="middle" fontSize="14" fontWeight="900" fill="#111" fontFamily="Arial Black, Arial">hulu</text>
+    </svg>
+  );
+}
+
+function PeacockLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#000000" />
+      <text x="30" y="14" textAnchor="middle" fontSize="6" fontWeight="700" fill="#F4C430" fontFamily="Arial">PEACOCK</text>
+      <text x="30" y="23" textAnchor="middle" fontSize="5" fontWeight="400" fill="white" fontFamily="Arial">streaming</text>
+    </svg>
+  );
+}
+
+function WOWLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#DA1E4B" />
+      <text x="30" y="22" textAnchor="middle" fontSize="18" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">WOW</text>
+    </svg>
+  );
+}
+
+function JoynLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#00DCA5" />
+      <text x="30" y="22" textAnchor="middle" fontSize="16" fontWeight="900" fill="#111" fontFamily="Arial Black, Arial">joyn</text>
+    </svg>
+  );
+}
+
+function MagentaLogo() {
+  return (
+    <svg viewBox="0 0 80 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="30" rx="4" fill="#E20074" />
+      <text x="40" y="13" textAnchor="middle" fontSize="8" fontWeight="700" fill="white" fontFamily="Arial">MagentaTV</text>
+      <text x="40" y="23" textAnchor="middle" fontSize="6" fontWeight="400" fill="white" fontFamily="Arial">Telekom</text>
+    </svg>
+  );
+}
+
+function ZattooLogo() {
+  return (
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#E6007E" />
+      <text x="30" y="21" textAnchor="middle" fontSize="11" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">zattoo</text>
+    </svg>
+  );
+}
+
+// ── Platform data ──────────────────────────────────────────────────────────────
+type LogoType = "img" | "svg";
+
+interface Platform {
+  id: string;
+  name: string;
+  sub: string;
+  bg: string;
+  logoType: LogoType;
+  logo?: string;
+  SvgLogo?: () => JSX.Element;
+}
+
+const INTL_PLATFORMS: Platform[] = [
+  { id: "netflix",   name: "Netflix",       sub: "Filme & Serien",    bg: "#E50914", logoType: "svg", SvgLogo: NetflixLogo  },
+  { id: "prime",     name: "Prime Video",   sub: "Amazon Original",   bg: "#00A8E0", logoType: "svg", SvgLogo: PrimeLogo    },
+  { id: "disneyp",   name: "Disney+",       sub: "Disney Originals",  bg: "#113CCF", logoType: "img", logo: "/logos/disneyplus.png" },
+  { id: "max",       name: "HBO / Max",     sub: "HBO Originals",     bg: "#002BE7", logoType: "svg", SvgLogo: MaxLogo      },
+  { id: "appletv",   name: "Apple TV+",     sub: "Apple Originals",   bg: "#000000", logoType: "svg", SvgLogo: AppleTVLogo  },
+  { id: "hulu",      name: "Hulu",          sub: "Live TV + VOD",     bg: "#1CE783", logoType: "svg", SvgLogo: HuluLogo     },
+  { id: "paramount", name: "Paramount+",    sub: "CBS & Paramount",   bg: "#0064FF", logoType: "img", logo: "/logos/paramount.png" },
+  { id: "peacock",   name: "Peacock",       sub: "NBC Universal",     bg: "#000000", logoType: "svg", SvgLogo: PeacockLogo  },
+  { id: "dazn",      name: "DAZN",          sub: "Live Sport",        bg: "#111111", logoType: "img", logo: "/logos/dazn.png"      },
+  { id: "espn",      name: "ESPN+",         sub: "Sport Live",        bg: "#AA0000", logoType: "img", logo: "/logos/espn.png"      },
+];
+
+const DE_PLATFORMS: Platform[] = [
+  { id: "rtlplus",   name: "RTL+",          sub: "RTL Deutschland",   bg: "#FF0050", logoType: "img", logo: "/logos/rtlplus.png"   },
+  { id: "skyde",     name: "Sky",           sub: "Sky Deutschland",   bg: "#101010", logoType: "img", logo: "/logos/sky.png"        },
+  { id: "daznde",    name: "DAZN",          sub: "Sport Streaming",   bg: "#141414", logoType: "img", logo: "/logos/daznde.png"     },
+  { id: "wow",       name: "WOW",           sub: "Sky Streaming",     bg: "#DA1E4B", logoType: "svg", SvgLogo: WOWLogo              },
+  { id: "joyn",      name: "Joyn",          sub: "Gratis Streaming",  bg: "#00DCA5", logoType: "svg", SvgLogo: JoynLogo             },
+  { id: "magentatv", name: "MagentaTV",     sub: "Telekom",           bg: "#E20074", logoType: "svg", SvgLogo: MagentaLogo          },
+  { id: "zattoo",    name: "Zattoo",        sub: "Live TV",           bg: "#E6007E", logoType: "svg", SvgLogo: ZattooLogo           },
+  { id: "ardmed",    name: "ARD Mediathek", sub: "Öffentlich-rechtl.",bg: "#003CA6", logoType: "img", logo: "/logos/ard.png"        },
+  { id: "zdfmed",    name: "ZDF Mediathek", sub: "Öffentlich-rechtl.",bg: "#161616", logoType: "img", logo: "/logos/zdf.png"        },
+  { id: "disneyDE",  name: "Disney+",       sub: "Disney Deutschland",bg: "#113CCF", logoType: "img", logo: "/logos/disneyplus.png" },
+];
+
+// ── Platform Card ─────────────────────────────────────────────────────────────
+function PlatformCard({ p }: { p: Platform }) {
+  return (
+    <div className="shrink-0 flex items-center gap-3 bg-white border border-black/8 rounded-2xl px-3.5 py-2.5 shadow-sm min-w-[175px]">
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden shrink-0 p-1"
+        style={{ backgroundColor: p.bg }}
+      >
+        {p.logoType === "svg" && p.SvgLogo ? (
+          <p.SvgLogo />
+        ) : (
+          <img
+            src={p.logo}
+            alt={p.name}
+            className="w-full h-full object-contain"
+            onError={e => {
+              const el = e.currentTarget;
+              el.style.display = "none";
+              const par = el.parentElement;
+              if (par) par.innerHTML = `<span style="color:white;font-size:8px;font-weight:900;text-align:center;line-height:1.2">${p.name}</span>`;
+            }}
+          />
         )}
       </div>
-      <span className="text-[7px] font-semibold text-white/45 truncate w-full text-center leading-tight px-0.5">{team.name}</span>
+      <div className="flex flex-col leading-none gap-1">
+        <span className="text-[#111211] text-[13px] font-bold whitespace-nowrap">{p.name}</span>
+        <span className="text-[#014E45]/65 text-[11px] font-medium whitespace-nowrap">{p.sub}</span>
+      </div>
     </div>
   );
 }
 
-// ─── Match data ───────────────────────────────────────────────────────────────
-type MatchStatus = "LIVE" | "SOON" | "UPCOMING";
-interface Match {
-  id: string; sport: string; league: string; leagueShort: string;
-  homeI: string; awayI: string; score: string; time: string;
-  status: MatchStatus; quality: string;
-}
-
-const ALL_MATCHES: Match[] = [
-  // ── Bundesliga ─────────────────────────────────────────────────────────────
-  { id:"b1",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"FCB", awayI:"BVB",  score:"3–2",  time:"74'",    status:"LIVE",     quality:"4K"  },
-  { id:"b2",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"RBL", awayI:"B04",  score:"1–1",  time:"58'",    status:"LIVE",     quality:"4K"  },
-  { id:"b3",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"SGE", awayI:"BMG",  score:"2–0",  time:"82'",    status:"LIVE",     quality:"FHD" },
-  { id:"b4",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"VFB", awayI:"SCF",  score:"",     time:"18:30",  status:"UPCOMING", quality:"FHD" },
-  { id:"b5",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"WOB", awayI:"M05",  score:"",     time:"20:30",  status:"UPCOMING", quality:"FHD" },
-  { id:"b6",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"FCU", awayI:"SVW",  score:"",     time:"–30m",   status:"SOON",     quality:"FHD" },
-  { id:"b7",  sport:"football", league:"Bundesliga",          leagueShort:"BL",   homeI:"TSG", awayI:"KOE",  score:"",     time:"Sa 15h", status:"UPCOMING", quality:"FHD" },
-  // ── Champions League ───────────────────────────────────────────────────────
-  { id:"c1",  sport:"football", league:"Champions League",    leagueShort:"UCL",  homeI:"B04", awayI:"RM",   score:"",     time:"–15m",   status:"SOON",     quality:"4K"  },
-  { id:"c2",  sport:"football", league:"Champions League",    leagueShort:"UCL",  homeI:"BVB", awayI:"PSG",  score:"0–1",  time:"43'",    status:"LIVE",     quality:"4K"  },
-  { id:"c3",  sport:"football", league:"Champions League",    leagueShort:"UCL",  homeI:"RBL", awayI:"MCI",  score:"",     time:"Sa 21h", status:"UPCOMING", quality:"4K"  },
-  // ── DFB-Pokal ──────────────────────────────────────────────────────────────
-  { id:"d1",  sport:"football", league:"DFB-Pokal",           leagueShort:"Pokal",homeI:"FCB", awayI:"HSV",  score:"",     time:"Di 20h", status:"UPCOMING", quality:"4K"  },
-  { id:"d2",  sport:"football", league:"DFB-Pokal",           leagueShort:"Pokal",homeI:"BVB", awayI:"SGE",  score:"",     time:"Mi 18h", status:"UPCOMING", quality:"FHD" },
-  // ── 2. Bundesliga ──────────────────────────────────────────────────────────
-  { id:"z1",  sport:"football", league:"2. Bundesliga",       leagueShort:"2.BL", homeI:"HSV", awayI:"S04",  score:"2–1",  time:"67'",    status:"LIVE",     quality:"FHD" },
-  // ── Nationalmannschaft ─────────────────────────────────────────────────────
-  { id:"n1",  sport:"football", league:"Nations League",      leagueShort:"NL",   homeI:"DFB", awayI:"FRA",  score:"",     time:"So 20h", status:"UPCOMING", quality:"4K"  },
-  { id:"n2",  sport:"football", league:"EM Quali",            leagueShort:"Quali",homeI:"DFB", awayI:"ENG",  score:"",     time:"Mi 20h", status:"UPCOMING", quality:"4K"  },
-  // ── F1 ─────────────────────────────────────────────────────────────────────
-  { id:"f1",  sport:"f1",       league:"Formel 1",            leagueShort:"F1",   homeI:"GP",  awayI:"FP",   score:"AKTIV",time:"LIVE",   status:"LIVE",     quality:"4K"  },
-  // ── NFL / ELF ──────────────────────────────────────────────────────────────
-  { id:"e1",  sport:"nfl",      league:"ELF Final",           leagueShort:"ELF",  homeI:"RFI", awayI:"VIK",  score:"",     time:"20:00",  status:"UPCOMING", quality:"4K"  },
-  // ── Basketball ─────────────────────────────────────────────────────────────
-  { id:"k1",  sport:"basketball",league:"BBL Play-offs",      leagueShort:"BBL",  homeI:"ALB", awayI:"FCB2", score:"",     time:"–45m",   status:"SOON",     quality:"FHD" },
-  // ── Tennis ─────────────────────────────────────────────────────────────────
-  { id:"t1",  sport:"tennis",   league:"ATP Finals",          leagueShort:"ATP",  homeI:"AZ",  awayI:"CA",   score:"6-4 3-6",time:"S.3", status:"LIVE",     quality:"4K"  },
-  // ── MMA ────────────────────────────────────────────────────────────────────
-  { id:"m1",  sport:"mma",      league:"WM-Kampf",            leagueShort:"MMA",  homeI:"UFC", awayI:"MUC",  score:"",     time:"Sa 22h", status:"UPCOMING", quality:"PPV" },
-];
-
-// ─── Main component ────────────────────────────────────────────────────────────
+// ── Main component ────────────────────────────────────────────────────────────
 export default function LiveSports({ onPricingClick }: LiveSportsProps) {
-  const [activeSport,  setActiveSport]  = useState("football");
-  const [activeLeague, setActiveLeague] = useState("all");
-  const [now, setNow] = useState("");
-
-  useEffect(() => {
-    const tick = () => setNow(new Date().toUTCString().slice(17, 22) + " UTC");
-    tick();
-    const t = setInterval(tick, 15000);
-    return () => clearInterval(t);
-  }, []);
-
-  const sportTabs = [
-    { value: "football",    label: "Fußball",     icon: "⚽" },
-    { value: "f1",          label: "Formel 1",    icon: "🏎️" },
-    { value: "nfl",         label: "NFL / ELF",   icon: "🏈" },
-    { value: "basketball",  label: "Basketball",  icon: "🏀" },
-    { value: "tennis",      label: "Tennis",      icon: "🎾" },
-    { value: "mma",         label: "Boxen/MMA",   icon: "🥊" },
-  ];
-
-  const footballLeagues = [
-    { value: "all",      label: "Alle"             },
-    { value: "BL",       label: "Bundesliga"        },
-    { value: "UCL",      label: "Champions League"  },
-    { value: "Pokal",    label: "DFB-Pokal"         },
-    { value: "2.BL",     label: "2. Bundesliga"     },
-    { value: "NL",       label: "Nationalelf"       },
-  ];
-
-  const sportFiltered = ALL_MATCHES.filter(m => m.sport === activeSport);
-  const displayed = activeSport !== "football" || activeLeague === "all"
-    ? sportFiltered
-    : sportFiltered.filter(m => m.leagueShort === activeLeague);
+  const tripled1 = [...INTL_PLATFORMS, ...INTL_PLATFORMS, ...INTL_PLATFORMS];
+  const tripled2 = [...DE_PLATFORMS,   ...DE_PLATFORMS,   ...DE_PLATFORMS];
 
   return (
     <section id="live-sports-section" className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
-      <div className="bg-[#080908] text-white rounded-2xl py-5 px-4 md:px-6 relative overflow-hidden ring-1 ring-white/[8]">
+      <div className="bg-[#080908] text-white rounded-2xl py-8 px-4 md:px-6 relative overflow-hidden ring-1 ring-white/[8]">
 
-        <div className="absolute top-0 right-0 w-56 h-56 bg-[#014E45]/[8] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-[#014E45]/[6] rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-10 left-0 w-56 h-56 bg-[#014E45]/[4] rounded-full blur-3xl pointer-events-none" />
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 bg-[#014E45]/30 border border-[#014E45]/50 px-2 py-0.5 rounded-full text-[9px] font-black font-mono uppercase tracking-widest text-white/70">
-              <span className="w-1 h-1 bg-white rounded-full animate-pulse" />
-              Live
-            </span>
-            <h2 className="text-base font-extrabold tracking-tight text-white">VIP Live-Sport</h2>
-            <span className="text-[9px] font-mono text-white/20 border border-white/[8] px-1.5 py-0.5 rounded-full">
-              {ALL_MATCHES.filter(m => m.status === "LIVE").length} live
-            </span>
+        <div className="flex items-center justify-between mb-2 relative z-10">
+          <div className="flex items-center gap-3">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
+              Alle Plattformen.{" "}
+              <span className="serif-display italic font-light text-white/60">Ein Abo.</span>
+            </h2>
           </div>
-          <span className="text-[9px] font-mono text-neutral-600">{now}</span>
         </div>
 
-        {/* Sport tabs */}
-        <div className="flex gap-1.5 overflow-x-auto pb-1 mb-3 scrollbar-none">
-          {sportTabs.map(s => (
-            <button key={s.value}
-              onClick={() => { setActiveSport(s.value); setActiveLeague("all"); }}
-              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold whitespace-nowrap shrink-0 transition-all ${
-                activeSport === s.value
-                  ? "bg-[#014E45] text-white"
-                  : "bg-white/5 text-white/[35] hover:text-white/60 border border-white/5"
-              }`}>
-              <span>{s.icon}</span>
-              <span>{s.label}</span>
-            </button>
-          ))}
-        </div>
+        <p className="text-white/35 text-xs font-mono mb-6 relative z-10">
+          Netflix · Prime · Disney+ · HBO · Sky · RTL+ · und viele mehr — alles über uns.
+        </p>
 
-        {/* Football sub-league filter */}
-        {activeSport === "football" && (
-          <div className="flex gap-1 overflow-x-auto pb-1 mb-3 scrollbar-none">
-            {footballLeagues.map(l => (
-              <button key={l.value}
-                onClick={() => setActiveLeague(l.value)}
-                className={`px-2.5 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap shrink-0 transition-all border ${
-                  activeLeague === l.value
-                    ? "bg-white/15 border-white/25 text-white"
-                    : "border-white/5 text-white/25 hover:text-white/45"
-                }`}>
-                {l.label}
-              </button>
+        {/* Row 1 — International, scrolls left */}
+        <div className="mb-2 relative z-10">
+          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30 mb-2 block">🌍 International</span>
+        </div>
+        <div className="overflow-hidden -mx-4 md:-mx-6 mb-3 select-none pointer-events-none">
+          <div className="animate-scroll flex gap-3 px-4">
+            {tripled1.map((p, i) => (
+              <PlatformCard key={`r1-${p.id}-${i}`} p={p} />
             ))}
           </div>
-        )}
+        </div>
 
-        {/* Match cards — horizontal scroll */}
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none -mx-1 px-1">
-          {displayed.length === 0 && (
-            <p className="text-white/20 text-xs py-4 px-2">Keine Spiele gerade.</p>
-          )}
-          {displayed.map(m => (
-            <div key={m.id}
-              className="shrink-0 w-[190px] bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 hover:border-white/[12] rounded-xl p-3 flex flex-col gap-2.5 transition-all">
+        {/* Row 2 — German, scrolls right */}
+        <div className="mb-2 relative z-10">
+          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30 mb-2 block">🇩🇪 Deutschland</span>
+        </div>
+        <div className="overflow-hidden -mx-4 md:-mx-6 mb-8 select-none pointer-events-none">
+          <div className="animate-scroll-reverse flex gap-3 px-4">
+            {tripled2.map((p, i) => (
+              <PlatformCard key={`r2-${p.id}-${i}`} p={p} />
+            ))}
+          </div>
+        </div>
 
-              {/* League + status */}
-              <div className="flex items-center justify-between gap-1">
-                <span className="text-[7.5px] font-mono text-white/25 uppercase tracking-wide truncate">{m.league}</span>
-                {m.status === "LIVE" ? (
-                  <span className="flex items-center gap-0.5 bg-[#014E45]/50 border border-[#014E45]/60 text-white text-[7px] font-black font-mono uppercase px-1.5 py-0.5 rounded-full animate-pulse shrink-0">
-                    <span className="w-1 h-1 bg-white rounded-full" /> LIVE
-                  </span>
-                ) : m.status === "SOON" ? (
-                  <span className="text-[7.5px] font-mono text-white/30 shrink-0">{m.time}</span>
-                ) : (
-                  <span className="text-[7.5px] font-mono text-white/20 shrink-0">{m.time}</span>
-                )}
-              </div>
-
-              {/* Teams + score */}
-              <div className="flex items-center justify-between gap-1">
-                <TeamBadge id={m.homeI} />
-                <div className="flex flex-col items-center shrink-0 px-1">
-                  <span className="text-[13px] font-black text-white font-mono leading-none">{m.score || "VS"}</span>
-                  {m.status === "LIVE" && (
-                    <span className="text-[7px] text-white/25 font-mono mt-0.5">{m.time}</span>
-                  )}
-                </div>
-                <TeamBadge id={m.awayI} />
-              </div>
-
-              {/* Quality + CTA */}
-              <div className="flex items-center justify-between pt-1.5 border-t border-white/5">
-                <span className="text-[7.5px] font-mono text-[#014E45] font-bold">{m.quality}</span>
-                <button onClick={onPricingClick}
-                  className="flex items-center gap-0.5 bg-[#014E45] hover:bg-[#013d37] text-white text-[9px] font-black px-2 py-1 rounded-lg transition-all">
-                  <span>Abo</span>
-                  <ArrowRight className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          ))}
+        {/* CTA */}
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/[8]">
+          <div>
+            <p className="text-white font-extrabold text-base tracking-tight">Zugang zu allen Plattformen</p>
+            <p className="text-white/35 text-xs mt-1">Ohne einzelne Abos — alles in einem IPTV-Paket.</p>
+          </div>
+          <button
+            onClick={onPricingClick}
+            className="flex items-center gap-2 bg-white text-[#014E45] font-extrabold text-sm px-6 py-2.5 rounded-full
+                       shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-0.5 active:shadow-none hover:bg-white/90 transition-all shrink-0"
+          >
+            <span>Jetzt Tarif wählen</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
 
       </div>
