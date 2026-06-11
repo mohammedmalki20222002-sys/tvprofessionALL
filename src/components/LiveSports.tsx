@@ -4,149 +4,81 @@ interface LiveSportsProps {
   onPricingClick: () => void;
 }
 
-// ── Inline SVG brand logos for platforms without downloadable PNGs ──────────
-function NetflixLogo() {
-  return (
-    <svg viewBox="0 0 24 32" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="24" height="32" fill="#E50914" />
-      <text x="12" y="24" textAnchor="middle" fontSize="22" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">N</text>
-    </svg>
-  );
-}
-
-function PrimeLogo() {
-  return (
-    <svg viewBox="0 0 80 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="80" height="30" rx="4" fill="#00A8E0" />
-      <text x="40" y="13" textAnchor="middle" fontSize="9" fontWeight="700" fill="white" fontFamily="Arial">prime</text>
-      <text x="40" y="24" textAnchor="middle" fontSize="7" fontWeight="400" fill="white" fontFamily="Arial">video</text>
-    </svg>
-  );
-}
-
-function MaxLogo() {
-  return (
-    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#002BE7" />
-      <text x="30" y="21" textAnchor="middle" fontSize="16" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">max</text>
-    </svg>
-  );
-}
-
-function AppleTVLogo() {
-  return (
-    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#000000" />
-      <text x="30" y="13" textAnchor="middle" fontSize="7" fontWeight="400" fill="white" fontFamily="Arial"> Apple</text>
-      <text x="30" y="23" textAnchor="middle" fontSize="7" fontWeight="700" fill="white" fontFamily="Arial">TV+</text>
-    </svg>
-  );
-}
-
-function HuluLogo() {
-  return (
-    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#1CE783" />
-      <text x="30" y="21" textAnchor="middle" fontSize="14" fontWeight="900" fill="#111" fontFamily="Arial Black, Arial">hulu</text>
-    </svg>
-  );
-}
-
-function PeacockLogo() {
-  return (
-    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#000000" />
-      <text x="30" y="14" textAnchor="middle" fontSize="6" fontWeight="700" fill="#F4C430" fontFamily="Arial">PEACOCK</text>
-      <text x="30" y="23" textAnchor="middle" fontSize="5" fontWeight="400" fill="white" fontFamily="Arial">streaming</text>
-    </svg>
-  );
-}
-
-function WOWLogo() {
-  return (
-    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#DA1E4B" />
-      <text x="30" y="22" textAnchor="middle" fontSize="18" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">WOW</text>
-    </svg>
-  );
-}
-
+// ── Inline SVG fallbacks for platforms with no downloadable logo ──────────────
 function JoynLogo() {
   return (
     <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <rect width="60" height="30" rx="4" fill="#00DCA5" />
-      <text x="30" y="22" textAnchor="middle" fontSize="16" fontWeight="900" fill="#111" fontFamily="Arial Black, Arial">joyn</text>
+      <text x="30" y="22" textAnchor="middle" fontSize="16" fontWeight="900" fill="#111" fontFamily="Arial Black,Arial">joyn</text>
     </svg>
   );
 }
-
 function MagentaLogo() {
   return (
     <svg viewBox="0 0 80 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <rect width="80" height="30" rx="4" fill="#E20074" />
-      <text x="40" y="13" textAnchor="middle" fontSize="8" fontWeight="700" fill="white" fontFamily="Arial">MagentaTV</text>
-      <text x="40" y="23" textAnchor="middle" fontSize="6" fontWeight="400" fill="white" fontFamily="Arial">Telekom</text>
+      <text x="40" y="14" textAnchor="middle" fontSize="9" fontWeight="700" fill="white" fontFamily="Arial">MagentaTV</text>
+      <text x="40" y="24" textAnchor="middle" fontSize="7" fontWeight="400" fill="white" fontFamily="Arial">Telekom</text>
     </svg>
   );
 }
-
-function ZattooLogo() {
+function WOWLogo() {
   return (
     <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="30" rx="4" fill="#E6007E" />
-      <text x="30" y="21" textAnchor="middle" fontSize="11" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">zattoo</text>
+      <rect width="60" height="30" rx="4" fill="#DA1E4B" />
+      <text x="30" y="22" textAnchor="middle" fontSize="18" fontWeight="900" fill="white" fontFamily="Arial Black,Arial">WOW</text>
     </svg>
   );
 }
-
-function ViaplayLogo() {
+function PeacockLogo() {
   return (
-    <svg viewBox="0 0 80 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-      <rect width="80" height="30" rx="4" fill="#3700B3" />
-      <text x="40" y="20" textAnchor="middle" fontSize="13" fontWeight="900" fill="white" fontFamily="Arial Black, Arial">viaplay</text>
+    <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" rx="4" fill="#000000" />
+      <text x="30" y="14" textAnchor="middle" fontSize="6.5" fontWeight="700" fill="#F4C430" fontFamily="Arial">PEACOCK</text>
+      <text x="30" y="23" textAnchor="middle" fontSize="5.5" fontWeight="400" fill="white" fontFamily="Arial">NBC Universal</text>
     </svg>
   );
 }
 
 // ── Platform data ──────────────────────────────────────────────────────────────
-type LogoType = "img" | "svg";
+type LogoKind = "svg-file" | "img" | "inline";
 
 interface Platform {
   id: string;
   name: string;
   sub: string;
   bg: string;
-  logoType: LogoType;
+  logoKind: LogoKind;
   logo?: string;
-  SvgLogo?: () => JSX.Element;
+  InlineLogo?: () => JSX.Element;
 }
 
 const INTL_PLATFORMS: Platform[] = [
-  { id: "netflix",   name: "Netflix",       sub: "Filme & Serien",    bg: "#E50914", logoType: "svg", SvgLogo: NetflixLogo  },
-  { id: "prime",     name: "Prime Video",   sub: "Amazon Original",   bg: "#00A8E0", logoType: "svg", SvgLogo: PrimeLogo    },
-  { id: "disneyp",   name: "Disney+",       sub: "Disney Originals",  bg: "#113CCF", logoType: "img", logo: "/logos/disneyplus.png" },
-  { id: "max",       name: "HBO / Max",     sub: "HBO Originals",     bg: "#002BE7", logoType: "svg", SvgLogo: MaxLogo      },
-  { id: "appletv",   name: "Apple TV+",     sub: "Apple Originals",   bg: "#000000", logoType: "svg", SvgLogo: AppleTVLogo  },
-  { id: "hulu",      name: "Hulu",          sub: "Live TV + VOD",     bg: "#1CE783", logoType: "svg", SvgLogo: HuluLogo     },
-  { id: "paramount", name: "Paramount+",    sub: "CBS & Paramount",   bg: "#0064FF", logoType: "img", logo: "/logos/paramount.png" },
-  { id: "peacock",   name: "Peacock",       sub: "NBC Universal",     bg: "#000000", logoType: "svg", SvgLogo: PeacockLogo  },
-  { id: "dazn",      name: "DAZN",          sub: "Live Sport",        bg: "#111111", logoType: "img", logo: "/logos/dazn.png"      },
-  { id: "espn",      name: "ESPN+",         sub: "Sport Live",        bg: "#AA0000", logoType: "img", logo: "/logos/espn.png"      },
+  { id: "netflix",   name: "Netflix",      sub: "Filme & Serien",   bg: "#E50914", logoKind: "svg-file", logo: "/logos/netflix.svg"   },
+  { id: "prime",     name: "Prime Video",  sub: "Amazon Original",  bg: "#00A8E0", logoKind: "svg-file", logo: "/logos/prime.svg"     },
+  { id: "disneyp",   name: "Disney+",      sub: "Disney Originals", bg: "#113CCF", logoKind: "img",      logo: "/logos/disneyplus.png"},
+  { id: "max",       name: "HBO / Max",    sub: "HBO Originals",    bg: "#002BE7", logoKind: "svg-file", logo: "/logos/hbomax.svg"    },
+  { id: "appletv",   name: "Apple TV+",    sub: "Apple Originals",  bg: "#000000", logoKind: "svg-file", logo: "/logos/appletv.svg"   },
+  { id: "hulu",      name: "Hulu",         sub: "Live TV + VOD",    bg: "#1CE783", logoKind: "svg-file", logo: "/logos/hulu.svg"      },
+  { id: "paramount", name: "Paramount+",   sub: "CBS & Paramount",  bg: "#0064FF", logoKind: "img",      logo: "/logos/paramount.png" },
+  { id: "peacock",   name: "Peacock",      sub: "NBC Universal",    bg: "#000000", logoKind: "inline",   InlineLogo: PeacockLogo     },
+  { id: "dazn",      name: "DAZN",         sub: "Live Sport",       bg: "#111111", logoKind: "svg-file", logo: "/logos/dazn.svg"      },
+  { id: "espn",      name: "ESPN+",        sub: "Sport Live",       bg: "#AA0000", logoKind: "img",      logo: "/logos/espn.png"      },
+  { id: "viaplay",   name: "Viaplay",      sub: "Nordic Streaming", bg: "#3700B3", logoKind: "svg-file", logo: "/logos/viaplay.svg"   },
 ];
 
 const DE_PLATFORMS: Platform[] = [
-  { id: "rtlplus",   name: "RTL+",          sub: "RTL Deutschland",   bg: "#FF0050", logoType: "img", logo: "/logos/rtlplus.png"   },
-  { id: "skyde",     name: "Sky",           sub: "Sky Deutschland",   bg: "#101010", logoType: "img", logo: "/logos/sky.png"        },
-  { id: "daznde",    name: "DAZN",          sub: "Sport Streaming",   bg: "#141414", logoType: "img", logo: "/logos/daznde.png"     },
-  { id: "wow",       name: "WOW",           sub: "Sky Streaming",     bg: "#DA1E4B", logoType: "svg", SvgLogo: WOWLogo              },
-  { id: "joyn",      name: "Joyn",          sub: "Gratis Streaming",  bg: "#00DCA5", logoType: "svg", SvgLogo: JoynLogo             },
-  { id: "magentatv", name: "MagentaTV",     sub: "Telekom",           bg: "#E20074", logoType: "svg", SvgLogo: MagentaLogo          },
-  { id: "zattoo",    name: "Zattoo",        sub: "Live TV",           bg: "#E6007E", logoType: "svg", SvgLogo: ZattooLogo           },
-  { id: "ardmed",    name: "ARD Mediathek", sub: "Öffentlich-rechtl.",bg: "#003CA6", logoType: "img", logo: "/logos/ard.png"        },
-  { id: "zdfmed",    name: "ZDF Mediathek", sub: "Öffentlich-rechtl.",bg: "#161616", logoType: "img", logo: "/logos/zdf.png"        },
-  { id: "disneyDE",  name: "Disney+",       sub: "Disney Deutschland",bg: "#113CCF", logoType: "img", logo: "/logos/disneyplus.png" },
-  { id: "videoland", name: "Videoland",     sub: "RTL Nederland",     bg: "#FF0066", logoType: "img", logo: "/logos/videoland.png"  },
-  { id: "viaplay",   name: "Viaplay",       sub: "Nordic Streaming",  bg: "#3700B3", logoType: "svg", SvgLogo: ViaplayLogo          },
+  { id: "rtlplus",   name: "RTL+",         sub: "RTL Deutschland",  bg: "#FF0050", logoKind: "img",      logo: "/logos/rtlplus.png"   },
+  { id: "skyde",     name: "Sky",          sub: "Sky Deutschland",  bg: "#101010", logoKind: "svg-file", logo: "/logos/skyde.svg"     },
+  { id: "daznde",    name: "DAZN",         sub: "Sport Streaming",  bg: "#141414", logoKind: "img",      logo: "/logos/daznde.png"    },
+  { id: "wow",       name: "WOW",          sub: "Sky Streaming",    bg: "#DA1E4B", logoKind: "inline",   InlineLogo: WOWLogo          },
+  { id: "joyn",      name: "Joyn",         sub: "Gratis Streaming", bg: "#00DCA5", logoKind: "inline",   InlineLogo: JoynLogo         },
+  { id: "magentatv", name: "MagentaTV",    sub: "Telekom",          bg: "#E20074", logoKind: "inline",   InlineLogo: MagentaLogo      },
+  { id: "ardmed",    name: "ARD Mediathek",sub: "Öffentl.-rechtl.", bg: "#003CA6", logoKind: "img",      logo: "/logos/ard.png"       },
+  { id: "zdfmed",    name: "ZDF Mediathek",sub: "Öffentl.-rechtl.", bg: "#161616", logoKind: "img",      logo: "/logos/zdf.png"       },
+  { id: "disneyDE",  name: "Disney+",      sub: "Disney DE",        bg: "#113CCF", logoKind: "img",      logo: "/logos/disneyplus.png"},
+  { id: "videoland", name: "Videoland",    sub: "RTL Nederland",    bg: "#FF0066", logoKind: "img",      logo: "/logos/videoland.png" },
+  { id: "viaplayde", name: "Viaplay",      sub: "Nordic Streaming", bg: "#3700B3", logoKind: "svg-file", logo: "/logos/viaplay.svg"   },
 ];
 
 // ── Platform Card ─────────────────────────────────────────────────────────────
@@ -154,11 +86,18 @@ function PlatformCard({ p }: { p: Platform }) {
   return (
     <div className="shrink-0 flex items-center gap-3 bg-white border border-black/8 rounded-2xl px-3.5 py-2.5 shadow-sm min-w-[175px]">
       <div
-        className="w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden shrink-0 p-1"
+        className="w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden shrink-0 p-1.5"
         style={{ backgroundColor: p.bg }}
       >
-        {p.logoType === "svg" && p.SvgLogo ? (
-          <p.SvgLogo />
+        {p.logoKind === "inline" && p.InlineLogo ? (
+          <p.InlineLogo />
+        ) : p.logoKind === "svg-file" ? (
+          <img
+            src={p.logo}
+            alt={p.name}
+            className="w-full h-full object-contain"
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
         ) : (
           <img
             src={p.logo}
@@ -194,40 +133,33 @@ export default function LiveSports({ onPricingClick }: LiveSportsProps) {
         <div className="absolute -bottom-10 left-0 w-56 h-56 bg-[#014E45]/[4] rounded-full blur-3xl pointer-events-none" />
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-2 relative z-10">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
-              Alle Plattformen.{" "}
-              <span className="serif-display italic font-light text-white/60">Ein Abo.</span>
-            </h2>
-          </div>
+        <div className="relative z-10 mb-2">
+          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
+            Alle Plattformen.{" "}
+            <span className="serif-display italic font-light text-white/60">Ein Abo.</span>
+          </h2>
+          <p className="text-white/35 text-xs font-mono mt-2 mb-6">
+            Netflix · Prime · Disney+ · HBO · Sky · RTL+ · Viaplay · Videoland — alles über uns.
+          </p>
         </div>
-
-        <p className="text-white/35 text-xs font-mono mb-6 relative z-10">
-          Netflix · Prime · Disney+ · HBO · Sky · RTL+ · und viele mehr — alles über uns.
-        </p>
 
         {/* Row 1 — International, scrolls left */}
-        <div className="mb-2 relative z-10">
-          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30 mb-2 block">🌍 International</span>
+        <div className="mb-1.5 relative z-10">
+          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30">🌍 International</span>
         </div>
-        <div className="overflow-hidden -mx-4 md:-mx-6 mb-3 select-none pointer-events-none">
+        <div className="overflow-hidden -mx-4 md:-mx-6 mb-4 select-none pointer-events-none">
           <div className="animate-scroll flex gap-3 px-4">
-            {tripled1.map((p, i) => (
-              <PlatformCard key={`r1-${p.id}-${i}`} p={p} />
-            ))}
+            {tripled1.map((p, i) => <PlatformCard key={`r1-${p.id}-${i}`} p={p} />)}
           </div>
         </div>
 
         {/* Row 2 — German, scrolls right */}
-        <div className="mb-2 relative z-10">
-          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30 mb-2 block">🇩🇪 Deutschland</span>
+        <div className="mb-1.5 relative z-10">
+          <span className="text-[9px] font-black font-mono uppercase tracking-[0.22em] text-white/30">🇩🇪 Deutschland & Europa</span>
         </div>
         <div className="overflow-hidden -mx-4 md:-mx-6 mb-8 select-none pointer-events-none">
           <div className="animate-scroll-reverse flex gap-3 px-4">
-            {tripled2.map((p, i) => (
-              <PlatformCard key={`r2-${p.id}-${i}`} p={p} />
-            ))}
+            {tripled2.map((p, i) => <PlatformCard key={`r2-${p.id}-${i}`} p={p} />)}
           </div>
         </div>
 
