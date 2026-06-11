@@ -1,0 +1,6 @@
+{
+  "name": "IPTV Subscription Store",
+  "description": "A premium, fully responsive sales platform for high-quality IPTV subscriptions, featuring a curated movie showcase, live channel browser, subscription cards, custom reviews, and interactive payment gateway.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
