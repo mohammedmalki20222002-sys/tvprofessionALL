@@ -31,7 +31,11 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
 
   const plans = SUBSCRIPTION_PLANS
     .filter(p => p.devices === activeDevices)
-    .sort((a, b) => a.durationMonths - b.durationMonths);
+    .sort((a, b) => {
+      if (a.durationMonths === 12) return -1;
+      if (b.durationMonths === 12) return 1;
+      return a.durationMonths - b.durationMonths;
+    });
 
   return (
     <section
@@ -131,9 +135,9 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                   border: `1.5px solid rgba(1,200,140,0.40)`,
                   boxShadow: `0 0 60px rgba(1,78,69,0.45), 0 12px 40px rgba(0,0,0,0.4)`,
                 } : {
-                  background: "#111211",
-                  border: "1.5px solid rgba(255,255,255,0.08)",
-                  boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+                  background: "linear-gradient(160deg, #1e2e2b 0%, #192622 60%, #1a2d29 100%)",
+                  border: "1.5px solid rgba(1,78,69,0.35)",
+                  boxShadow: "0 8px 30px rgba(0,0,0,0.35)",
                 }}>
 
                 {/* Top stripe */}
@@ -184,16 +188,16 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                       color: "#fff",
                       border: "1px solid rgba(255,255,255,0.30)",
                     } : {
-                      background: "rgba(255,255,255,0.06)",
-                      color: "rgba(255,255,255,0.45)",
-                      border: "1px solid rgba(255,255,255,0.10)",
+                      background: "rgba(1,78,69,0.20)",
+                      color: "rgba(255,255,255,0.65)",
+                      border: "1px solid rgba(1,78,69,0.40)",
                     }}>
                     {plan.savings}
                   </span>
 
                   {/* Price */}
                   <div className="pb-5 mb-5 border-b"
-                    style={{ borderColor: plan.popular ? "rgba(255,255,255,0.20)" : "rgba(255,255,255,0.07)" }}>
+                    style={{ borderColor: plan.popular ? "rgba(255,255,255,0.20)" : "rgba(1,78,69,0.30)" }}>
                     <div className="flex items-end gap-2">
                       <span className="text-3xl font-black tracking-tight leading-none text-white">
                         {plan.price.toFixed(2).replace(".", ",")} €
@@ -225,7 +229,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                             style={{ color: plan.popular ? "#fff" : GREEN }} />
                         </span>
                         <span className="text-[11px] leading-relaxed"
-                          style={{ color: plan.popular ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.45)" }}>
+                          style={{ color: plan.popular ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.60)" }}>
                           {feature}
                         </span>
                       </li>
