@@ -4,8 +4,34 @@ interface HeroProps {
   onPricingClick: () => void;
 }
 
+const WM_CHANNELS = [
+  // German Free TV
+  { id: "ard",    name: "ARD",        sub: "Das Erste",    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/ARD_Logo_2019.svg/120px-ARD_Logo_2019.svg.png",        bg: "#003CA6", type: "Free",    flag: "🇩🇪" },
+  { id: "zdf",    name: "ZDF",        sub: "ZDF HD",       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/ZDF_logo.svg/120px-ZDF_logo.svg.png",                  bg: "#000000", type: "Free",    flag: "🇩🇪" },
+  { id: "rtl",    name: "RTL",        sub: "RTL HD",       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/RTL_2019_logo.svg/120px-RTL_2019_logo.svg.png",        bg: "#E8001A", type: "Free",    flag: "🇩🇪" },
+  { id: "sat1",   name: "SAT.1",      sub: "SAT.1 HD",     logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Sat1-logo.svg/120px-Sat1-logo.svg.png",                bg: "#003087", type: "Free",    flag: "🇩🇪" },
+  // German Premium / PPV
+  { id: "sky",    name: "Sky Sport",  sub: "Sky WM",       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Sky_Deutschland_Logo_2020.svg/120px-Sky_Deutschland_Logo_2020.svg.png", bg: "#E4002B", type: "PPV", flag: "🇩🇪" },
+  { id: "mag",    name: "MagentaTV",  sub: "Telekom",      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/MagentaTV_Logo.svg/120px-MagentaTV_Logo.svg.png",     bg: "#E20074", type: "VIP",    flag: "🇩🇪" },
+  { id: "dazn",   name: "DAZN",       sub: "DAZN WM",      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/DAZN_word_logo.svg/120px-DAZN_word_logo.svg.png",     bg: "#111111", type: "PPV",    flag: "🌍"  },
+  // International
+  { id: "bein",   name: "beIN Sports",sub: "beIN 1",       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/BeIN_Sports_logo.svg/120px-BeIN_Sports_logo.svg.png", bg: "#6B0FA8", type: "PPV",    flag: "🌍"  },
+  { id: "bbc",    name: "BBC Sport",  sub: "BBC One",      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/BBC_Sport_logo_2021.svg/120px-BBC_Sport_logo_2021.svg.png", bg: "#CC0000", type: "Free", flag: "🇬🇧" },
+  { id: "itv",    name: "ITV",        sub: "ITV1 HD",      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/ITV_logo_2013.svg/120px-ITV_logo_2013.svg.png",       bg: "#0057A8", type: "Free",   flag: "🇬🇧" },
+  { id: "tf1",    name: "TF1",        sub: "TF1 France",   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/TF1_logo_2013.svg/120px-TF1_logo_2013.svg.png",       bg: "#0066CC", type: "Free",   flag: "🇫🇷" },
+  { id: "espn",   name: "ESPN",       sub: "ESPN WM",      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/120px-ESPN_wordmark.svg.png",       bg: "#CC0000", type: "PPV",    flag: "🇺🇸" },
+  { id: "fox",    name: "Fox Sports", sub: "FS1 WM",       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Fox_Sports_Logo.svg/120px-Fox_Sports_Logo.svg.png",   bg: "#003DA5", type: "PPV",    flag: "🇺🇸" },
+  { id: "canal",  name: "Canal+",     sub: "Canal+ Sport", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Canal%2B.svg/120px-Canal%2B.svg.png",                 bg: "#1A1A1A", type: "PPV",    flag: "🇫🇷" },
+];
+
+const TYPE_STYLE: Record<string, string> = {
+  Free: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+  PPV:  "bg-amber-500/20  text-amber-300  border-amber-500/30",
+  VIP:  "bg-purple-500/20 text-purple-300 border-purple-500/30",
+};
+
 export default function Hero({ onPricingClick }: HeroProps) {
-  const devices = ["🖥️ Smart TV", "🔥 Fire Stick", "🍏 Apple TV", "🤖 Android", "💻 PC"];
+  const doubled = [...WM_CHANNELS, ...WM_CHANNELS, ...WM_CHANNELS];
 
   return (
     <section className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
@@ -124,14 +150,50 @@ export default function Hero({ onPricingClick }: HeroProps) {
               Kein Vertrag · Sofortiger Zugang
             </p>
 
-            {/* Device pills */}
-            <div className="flex gap-1.5 overflow-x-auto scrollbar-none pb-0.5 -ml-0.5">
-              {devices.map(d => (
-                <span key={d}
-                  className="shrink-0 px-3 py-1.5 bg-white/10 hover:bg-white/15 text-white/60 text-[10px] font-semibold rounded-full border border-white/10 transition-colors whitespace-nowrap">
-                  {d}
-                </span>
-              ))}
+            {/* WM Channel auto-scroll strip */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-white/30">
+                ⚽ WM Live-Sender — verfügbar mit uns
+              </p>
+              <div className="overflow-hidden -mx-6 sm:-mx-8 md:-mx-10 lg:-mx-12">
+                <div className="animate-scroll flex gap-2.5 px-2">
+                  {doubled.map((ch, i) => (
+                    <div
+                      key={`${ch.id}-${i}`}
+                      className="shrink-0 flex items-center gap-2.5 bg-white/8 hover:bg-white/14 border border-white/10 rounded-xl px-3 py-2 transition-colors cursor-default"
+                    >
+                      {/* Logo */}
+                      <div
+                        className="w-8 h-8 rounded-lg flex items-center justify-center overflow-hidden shrink-0"
+                        style={{ backgroundColor: ch.bg }}
+                      >
+                        <img
+                          src={ch.logo}
+                          alt={ch.name}
+                          className="w-6 h-6 object-contain"
+                          onError={e => {
+                            const el = e.currentTarget;
+                            el.style.display = "none";
+                            if (el.parentElement) {
+                              el.parentElement.innerHTML = `<span style="color:white;font-size:9px;font-weight:900;letter-spacing:-0.5px">${ch.name.slice(0,4)}</span>`;
+                            }
+                          }}
+                        />
+                      </div>
+                      {/* Text */}
+                      <div className="flex flex-col leading-none">
+                        <span className="text-white text-[11px] font-bold whitespace-nowrap">{ch.name}</span>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <span className="text-[8px] text-white/40">{ch.flag}</span>
+                          <span className={`text-[7px] font-black uppercase tracking-wide px-1 py-px rounded border ${TYPE_STYLE[ch.type]}`}>
+                            {ch.type}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
