@@ -6,24 +6,23 @@ interface HeroProps {
 
 const WM_CHANNELS = [
   // German Free TV
-  { id: "ard",   name: "ARD",        sub: "Das Erste",    logo: "https://logo.clearbit.com/ard.de",           bg: "#003CA6", type: "Free", flag: "🇩🇪" },
-  { id: "zdf",   name: "ZDF",        sub: "ZDF HD",       logo: "https://logo.clearbit.com/zdf.de",           bg: "#161616", type: "Free", flag: "🇩🇪" },
-  { id: "rtl",   name: "RTL",        sub: "RTL HD",       logo: "https://logo.clearbit.com/rtl.de",           bg: "#E8001A", type: "Free", flag: "🇩🇪" },
-  { id: "sat1",  name: "SAT.1",      sub: "SAT.1 HD",     logo: "https://logo.clearbit.com/sat1.de",          bg: "#1A3A8F", type: "Free", flag: "🇩🇪" },
-  { id: "pro7",  name: "ProSieben",  sub: "ProSieben HD", logo: "https://logo.clearbit.com/prosieben.de",     bg: "#CC0000", type: "Free", flag: "🇩🇪" },
-  // German Premium / PPV
-  { id: "sky",   name: "Sky Sport",  sub: "Sky WM",       logo: "https://logo.clearbit.com/sky.de",           bg: "#E4002B", type: "PPV", flag: "🇩🇪" },
-  { id: "mag",   name: "MagentaTV",  sub: "Telekom",      logo: "https://logo.clearbit.com/magentatv.de",     bg: "#E20074", type: "VIP", flag: "🇩🇪" },
-  { id: "dazn",  name: "DAZN",       sub: "DAZN WM",      logo: "https://logo.clearbit.com/dazn.com",         bg: "#111111", type: "PPV", flag: "🌍"  },
-  // International PPV
-  { id: "bein",  name: "beIN Sports",sub: "beIN 1",       logo: "https://logo.clearbit.com/beinsports.com",   bg: "#6B0FA8", type: "PPV", flag: "🌍"  },
-  { id: "bbc",   name: "BBC Sport",  sub: "BBC One",      logo: "https://logo.clearbit.com/bbc.co.uk",        bg: "#CC0000", type: "Free", flag: "🇬🇧" },
-  { id: "itv",   name: "ITV",        sub: "ITV1 HD",      logo: "https://logo.clearbit.com/itv.com",          bg: "#0057A8", type: "Free", flag: "🇬🇧" },
-  { id: "tf1",   name: "TF1",        sub: "TF1 France",   logo: "https://logo.clearbit.com/tf1.fr",           bg: "#0066CC", type: "Free", flag: "🇫🇷" },
-  { id: "canal", name: "Canal+",     sub: "Canal+ Sport", logo: "https://logo.clearbit.com/canalplus.com",    bg: "#1A1A1A", type: "PPV", flag: "🇫🇷" },
-  { id: "espn",  name: "ESPN",       sub: "ESPN WM",      logo: "https://logo.clearbit.com/espn.com",         bg: "#AA0000", type: "PPV", flag: "🇺🇸" },
-  { id: "fox",   name: "Fox Sports", sub: "FS1 WM",       logo: "https://logo.clearbit.com/foxsports.com",    bg: "#003DA5", type: "PPV", flag: "🇺🇸" },
-  { id: "ssc",   name: "SSC Sport",  sub: "SSC WM",       logo: "https://logo.clearbit.com/ssc.com.sa",       bg: "#006633", type: "PPV", flag: "🌍"  },
+  { id: "ard",   name: "ARD",        sub: "Das Erste",    logo: "/logos/ard.png",   bg: "#003CA6", type: "Free", flag: "🇩🇪" },
+  { id: "zdf",   name: "ZDF",        sub: "ZDF HD",       logo: "/logos/zdf.png",   bg: "#161616", type: "Free", flag: "🇩🇪" },
+  { id: "rtl",   name: "RTL",        sub: "RTL HD",       logo: "/logos/rtl.png",   bg: "#E8001A", type: "Free", flag: "🇩🇪" },
+  { id: "sat1",  name: "SAT.1",      sub: "SAT.1 HD",     logo: "/logos/sat1.png",  bg: "#1A3A8F", type: "Free", flag: "🇩🇪" },
+  { id: "pro7",  name: "ProSieben",  sub: "Pro7 HD",      logo: "/logos/pro7.png",  bg: "#CC0000", type: "Free", flag: "🇩🇪" },
+  // German Premium
+  { id: "sky",   name: "Sky Sport",  sub: "Sky WM",       logo: "/logos/sky.png",   bg: "#101010", type: "PPV", flag: "🇩🇪" },
+  { id: "euro1", name: "Eurosport",  sub: "Eurosport 1",  logo: "/logos/euro1.png", bg: "#FF6600", type: "PPV", flag: "🇩🇪" },
+  { id: "dazn",  name: "DAZN",       sub: "DAZN WM",      logo: "/logos/dazn.png",  bg: "#111111", type: "PPV", flag: "🌍"  },
+  // International
+  { id: "bein",  name: "beIN Sports",sub: "beIN 1",       logo: "/logos/bein.png",  bg: "#6B0FA8", type: "PPV", flag: "🌍"  },
+  { id: "bbc",   name: "BBC One",    sub: "BBC WM",       logo: "/logos/bbc.png",   bg: "#CC0000", type: "Free", flag: "🇬🇧" },
+  { id: "itv",   name: "ITV",        sub: "ITV1 HD",      logo: "/logos/itv.png",   bg: "#0057A8", type: "Free", flag: "🇬🇧" },
+  { id: "tf1",   name: "TF1",        sub: "TF1 France",   logo: "/logos/tf1.png",   bg: "#0066CC", type: "Free", flag: "🇫🇷" },
+  { id: "canal", name: "Canal+",     sub: "Canal+ Sport", logo: "/logos/canal.png", bg: "#1A1A1A", type: "PPV", flag: "🇫🇷" },
+  { id: "espn",  name: "ESPN",       sub: "ESPN WM",      logo: "/logos/espn.png",  bg: "#AA0000", type: "PPV", flag: "🇺🇸" },
+  { id: "fox",   name: "Fox Sports", sub: "FS1 WM",       logo: "/logos/fox.png",   bg: "#003DA5", type: "PPV", flag: "🇺🇸" },
 ];
 
 const TYPE_STYLE: Record<string, string> = {
