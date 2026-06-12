@@ -4,7 +4,7 @@ interface LiveSportsProps {
   onPricingClick: () => void;
 }
 
-// ── Inline SVG fallbacks for platforms with no downloadable logo ──────────────
+// ── Inline SVG fallbacks ──────────────────────────────────────────────────────
 function JoynLogo() {
   return (
     <svg viewBox="0 0 60 30" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,38 @@ function PeacockLogo() {
   );
 }
 
-// ── Platform data ──────────────────────────────────────────────────────────────
+// ── Sports leagues data ───────────────────────────────────────────────────────
+interface League {
+  id: string;
+  name: string;
+  logo: string;
+  country: string;
+}
+
+const LEAGUES: League[] = [
+  { id: "ucl",    name: "UEFA Champions League",  logo: "/sports/UEFA_Champions_League.png",  country: "Europa"      },
+  { id: "uel",    name: "UEFA Europa League",      logo: "/sports/UEFA_Europa_League.png",     country: "Europa"      },
+  { id: "uecl",   name: "UEFA Conference League",  logo: "/sports/UEFA_Conference_League.png", country: "Europa"      },
+  { id: "pl",     name: "Premier League",          logo: "/sports/Premier_League.png",         country: "England"     },
+  { id: "laliga", name: "La Liga",                 logo: "/sports/La_Liga.png",                country: "Spain"       },
+  { id: "bl",     name: "Bundesliga",              logo: "/sports/Bundesliga.png",             country: "Deutschland" },
+  { id: "sa",     name: "Serie A",                 logo: "/sports/Serie_A.png",                country: "Italia"      },
+  { id: "l1",     name: "Ligue 1",                 logo: "/sports/Ligue_1.png",                country: "France"      },
+  { id: "erediv",  name: "Eredivisie",             logo: "/sports/Eredivisie.png",             country: "Netherlands" },
+  { id: "primeirap", name: "Primeira Liga",        logo: "/sports/Primeira_Liga.png",          country: "Portugal"    },
+  { id: "spl",    name: "Saudi Pro League",        logo: "/sports/Saudi_Pro_League.png",       country: "Saudi Arabia"},
+  { id: "superlig", name: "Süper Lig",             logo: "/sports/Super_Lig.png",              country: "Türkiye"     },
+  { id: "bra",    name: "Brasileirão",             logo: "/sports/Brasileirao.png",            country: "Brasil"      },
+  { id: "ligapro", name: "Liga Profesional",       logo: "/sports/Liga_Profesional.png",       country: "Argentina"   },
+  { id: "caf",    name: "CAF Champions League",    logo: "/sports/CAF_Champions_League.png",   country: "Africa"      },
+  { id: "f1",     name: "Formula 1",               logo: "/sports/Formula_1.png",              country: "Motorsport"  },
+  { id: "ufc",    name: "UFC",                     logo: "/sports/UFC.png",                    country: "MMA"         },
+  { id: "tdf",    name: "Tour de France",          logo: "/sports/Tour_de_France.png",         country: "Cycling"     },
+  { id: "can",    name: "Canadian Championship",   logo: "/sports/Canadian_Championship.png",  country: "Canada"      },
+  { id: "cpl",    name: "Challenger Pro League",   logo: "/sports/Challenger_Pro_League.png",  country: "Belgium"     },
+];
+
+// ── Platforms data ────────────────────────────────────────────────────────────
 type LogoKind = "svg-file" | "img" | "inline";
 
 interface Platform {
@@ -81,105 +112,121 @@ const DE_PLATFORMS: Platform[] = [
   { id: "viaplayde", name: "Viaplay",      sub: "Nordic Streaming", bg: "#3700B3", logoKind: "svg-file", logo: "/logos/viaplay.svg"   },
 ];
 
+// ── League Card ───────────────────────────────────────────────────────────────
+function LeagueCard({ l }: { l: League }) {
+  return (
+    <div className="shrink-0 flex items-center justify-center w-20 h-20 bg-white hover:bg-neutral-50 border border-black/8 rounded-2xl p-3 transition-colors shadow-sm" title={l.name}>
+      <img
+        src={l.logo}
+        alt={l.name}
+        className="w-full h-full object-contain drop-shadow-sm"
+        onError={e => { (e.currentTarget as HTMLImageElement).style.opacity = "0"; }}
+      />
+    </div>
+  );
+}
+
 // ── Platform Card ─────────────────────────────────────────────────────────────
 function PlatformCard({ p }: { p: Platform }) {
   return (
-    <div className="shrink-0 flex items-center gap-3 bg-white border border-black/8 rounded-2xl px-3.5 py-2.5 shadow-sm min-w-[175px]">
-      <div
-        className="w-11 h-11 rounded-xl flex items-center justify-center overflow-hidden shrink-0 p-1.5"
-        style={{ backgroundColor: p.bg }}
-      >
-        {p.logoKind === "inline" && p.InlineLogo ? (
-          <p.InlineLogo />
-        ) : p.logoKind === "svg-file" ? (
-          <img
-            src={p.logo}
-            alt={p.name}
-            className="w-full h-full object-contain"
-            style={{ filter: "brightness(0) invert(1)" }}
-          />
-        ) : (
-          <img
-            src={p.logo}
-            alt={p.name}
-            className="w-full h-full object-contain"
-            onError={e => {
-              const el = e.currentTarget;
-              el.style.display = "none";
-              const par = el.parentElement;
-              if (par) par.innerHTML = `<span style="color:white;font-size:8px;font-weight:900;text-align:center;line-height:1.2">${p.name}</span>`;
-            }}
-          />
-        )}
-      </div>
-      <div className="flex flex-col leading-none gap-1">
-        <span className="text-[#111211] text-[13px] font-bold whitespace-nowrap">{p.name}</span>
-        <span className="text-[#014E45]/65 text-[11px] font-medium whitespace-nowrap">{p.sub}</span>
-      </div>
+    <div
+      className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center overflow-hidden p-2.5 shadow-sm"
+      style={{ backgroundColor: p.bg }}
+      title={p.name}
+    >
+      {p.logoKind === "inline" && p.InlineLogo ? (
+        <p.InlineLogo />
+      ) : p.logoKind === "svg-file" ? (
+        <img src={p.logo} alt={p.name} className="w-full h-full object-contain" style={{ filter: "brightness(0) invert(1)" }} />
+      ) : (
+        <img
+          src={p.logo}
+          alt={p.name}
+          className="w-full h-full object-contain"
+          onError={e => {
+            const el = e.currentTarget;
+            el.style.display = "none";
+            const par = el.parentElement;
+            if (par) par.innerHTML = `<span style="color:white;font-size:8px;font-weight:900;text-align:center;line-height:1.2">${p.name}</span>`;
+          }}
+        />
+      )}
     </div>
   );
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
 export default function LiveSports({ onPricingClick }: LiveSportsProps) {
-  const tripled1 = [...INTL_PLATFORMS, ...INTL_PLATFORMS, ...INTL_PLATFORMS];
-  const tripled2 = [...DE_PLATFORMS,   ...DE_PLATFORMS,   ...DE_PLATFORMS];
+  const leaguesTripled = [...LEAGUES, ...LEAGUES, ...LEAGUES];
+  const tripled1       = [...INTL_PLATFORMS, ...INTL_PLATFORMS, ...INTL_PLATFORMS];
+  const tripled2       = [...DE_PLATFORMS,   ...DE_PLATFORMS,   ...DE_PLATFORMS];
 
   return (
-    <section id="live-sports-section" className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
-      <div className="bg-[#080908] text-white rounded-2xl py-8 px-4 md:px-6 relative overflow-hidden ring-1 ring-white/[8]">
-
-        <div className="absolute top-0 right-0 w-72 h-72 bg-[#014E45]/[6] rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-10 left-0 w-56 h-56 bg-[#014E45]/[4] rounded-full blur-3xl pointer-events-none" />
-
-        {/* Header */}
-        <div className="relative z-10 mb-2">
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
-            Alle Plattformen.{" "}
-            <span className="serif-display italic font-light text-white/60">Ein Abo.</span>
-          </h2>
-          <p className="serif-display italic font-light text-xl text-white/40 mt-2 mb-6">
-            Netflix · Prime · Disney+ · HBO · Sky · RTL+ · Viaplay · Videoland — alles über uns.
-          </p>
-        </div>
-
-        {/* Row 1 — International, scrolls left */}
-        <div className="mb-1.5 relative z-10">
-          <span className="serif-display italic font-light text-xl text-white/40">🌍 International</span>
-        </div>
-        <div className="overflow-hidden -mx-4 md:-mx-6 mb-4 select-none pointer-events-none">
-          <div className="animate-scroll flex gap-3 px-4">
-            {tripled1.map((p, i) => <PlatformCard key={`r1-${p.id}-${i}`} p={p} />)}
+    <>
+      {/* ── SECTION 1 — Live Sport ───────────────────────────────────────────── */}
+      <section id="live-sports-section" className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
+        <div
+          className="rounded-2xl overflow-hidden relative text-white py-5"
+          style={{ background: "linear-gradient(145deg, #0a0f1e 0%, #0d1a2e 55%, #091525 100%)" }}
+        >
+          {/* League scroll row */}
+          <div className="overflow-hidden -mx-4 md:-mx-6 select-none pointer-events-none">
+            <div className="animate-scroll flex gap-3 px-4">
+              {leaguesTripled.map((l, i) => (
+                <div key={`${l.id}-${i}`} className="pointer-events-auto">
+                  <LeagueCard l={l} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Row 2 — German, scrolls right */}
-        <div className="mb-1.5 relative z-10">
-          <span className="serif-display italic font-light text-xl text-white/40">🇩🇪 Deutschland & Europa</span>
-        </div>
-        <div className="overflow-hidden -mx-4 md:-mx-6 mb-8 select-none pointer-events-none">
-          <div className="animate-scroll-reverse flex gap-3 px-4">
-            {tripled2.map((p, i) => <PlatformCard key={`r2-${p.id}-${i}`} p={p} />)}
+      {/* ── SECTION 2 — Streaming Platforms ─────────────────────────────────── */}
+      <section className="px-4 md:px-8 max-w-7xl mx-auto w-full py-4">
+        <div className="bg-[#080908] text-white rounded-2xl py-8 px-4 md:px-6 relative overflow-hidden ring-1 ring-white/[8]">
+
+          <div className="absolute top-0 right-0 w-72 h-72 bg-[#014E45]/[0.06] rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-10 left-0 w-56 h-56 bg-[#014E45]/[0.04] rounded-full blur-3xl pointer-events-none" />
+
+          {/* Header */}
+          <div className="relative z-10 mb-5 px-4 md:px-6">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-tight">
+              Alle Plattformen.{" "}
+              <span className="serif-display italic font-light text-white/85">Ein Abo.</span>
+            </h2>
+            <p className="serif-display italic font-light text-xl text-white/75 mt-1">
+              Netflix · Prime · Disney+ · HBO · Sky · RTL+ · Viaplay · Videoland — alles über uns.
+            </p>
+          </div>
+
+          {/* Row 1 */}
+          <div className="overflow-hidden -mx-4 md:-mx-6 mb-3 select-none pointer-events-none">
+            <div className="animate-scroll flex gap-3 px-4">
+              {tripled1.map((p, i) => <PlatformCard key={`r1-${p.id}-${i}`} p={p} />)}
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          <div className="overflow-hidden -mx-4 md:-mx-6 mb-8 select-none pointer-events-none">
+            <div className="animate-scroll-reverse flex gap-3 px-4">
+              {tripled2.map((p, i) => <PlatformCard key={`r2-${p.id}-${i}`} p={p} />)}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="relative z-10 flex justify-end pt-6 border-t border-white/[8]">
+            <button
+              onClick={onPricingClick}
+              className="flex items-center gap-2 bg-white text-[#014E45] font-extrabold text-sm px-6 py-2.5 rounded-full
+                         shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-0.5 active:shadow-none hover:bg-white/90 transition-all shrink-0"
+            >
+              <span>Jetzt Tarif wählen</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
-
-        {/* CTA */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/[8]">
-          <div>
-            <p className="text-white font-extrabold text-base tracking-tight">Zugang zu allen Plattformen</p>
-            <p className="text-white/35 text-xs mt-1">Ohne einzelne Abos — alles in einem IPTV-Paket.</p>
-          </div>
-          <button
-            onClick={onPricingClick}
-            className="flex items-center gap-2 bg-white text-[#014E45] font-extrabold text-sm px-6 py-2.5 rounded-full
-                       shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-0.5 active:shadow-none hover:bg-white/90 transition-all shrink-0"
-          >
-            <span>Jetzt Tarif wählen</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

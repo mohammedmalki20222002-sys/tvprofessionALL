@@ -19,15 +19,15 @@ export default function Testimonials() {
 
         {/* Headline */}
         <div className="max-w-xl mx-auto mb-14 text-center">
-          <span className="serif-display italic font-light text-2xl text-white/55 mb-3 block">
+          <span className="serif-display italic font-light text-2xl text-white/85 mb-3 block">
             Kundenmeinungen
           </span>
           <h2 className="text-[1.85rem] sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-3">
             Liebesbriefe
             <br />
-            <span className="serif-display italic font-light text-white/70 pr-1.5">an IPTV Professional.</span>
+            <span className="serif-display italic font-light text-white/90 pr-1.5">an IPTV Professional.</span>
           </h2>
-          <p className="serif-display italic font-light text-base md:text-xl text-neutral-400 mt-4">
+          <p className="serif-display italic font-light text-base md:text-xl text-neutral-100 mt-4">
             Erfahren Sie, wie über 45.000 aktive Abonnenten ihren alten Kabelanschluss durch unsere High-Fidelity- und High-Speed-Streaming-Infrastruktur ersetzt haben.
           </p>
         </div>

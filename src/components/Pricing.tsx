@@ -65,14 +65,14 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                 <span className="hidden md:block absolute -right-12 top-1/2 -translate-y-1/2 text-white/10 text-4xl font-thin">|</span>
               )}
               <span className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight text-white">{value}</span>
-              <span className="serif-display italic font-light text-xl text-white/35 mt-1.5">{label}</span>
+              <span className="serif-display italic font-light text-xl text-white/75 mt-1.5">{label}</span>
             </div>
           ))}
         </div>
 
         {/* ── Heading ───────────────────────────────────────────────────── */}
         <div className="max-w-xl mx-auto mb-10 text-center">
-          <span className="serif-display italic font-light text-2xl text-white/40 mb-3 block">
+          <span className="serif-display italic font-light text-2xl text-white/80 mb-3 block">
             Premium Abonnements
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-white">
@@ -90,7 +90,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
               Premium-Plan.
             </span>
           </h2>
-          <p className="serif-display italic font-light text-base md:text-xl text-white/40 mt-4 leading-relaxed">
+          <p className="serif-display italic font-light text-base md:text-xl text-white/75 mt-4 leading-relaxed">
             Keine automatische Verlängerung. Deine Laufzeit, deine Regeln — sicher, schnell und weltweit verfügbar.
           </p>
         </div>
@@ -281,7 +281,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                 {icon}
                 <div>
                   <p className="text-base font-bold text-white/80">{title}</p>
-                  <p className="serif-display italic font-light text-base text-white/40 mt-0.5 leading-relaxed">{desc}</p>
+                  <p className="serif-display italic font-light text-base text-white/75 mt-0.5 leading-relaxed">{desc}</p>
                 </div>
               </>
             );

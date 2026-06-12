@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#014E45"/>
+  <!-- equalizer bars matching the header logo -->
+  <rect x="7"  y="18" width="3" height="7"  rx="1.5" fill="white" opacity="0.6"/>
+  <rect x="12" y="14" width="3" height="11" rx="1.5" fill="white" opacity="0.8"/>
+  <rect x="17" y="10" width="3" height="15" rx="1.5" fill="white"/>
+  <rect x="22" y="7"  width="3" height="18" rx="1.5" fill="white"/>
+</svg>

@@ -5,6 +5,7 @@ import LiveSports from "./components/LiveSports";
 import MovieGrid from "./components/MovieGrid";
 import Pricing from "./components/Pricing";
 import Testimonials from "./components/Testimonials";
+import DeviceCompatibility from "./components/DeviceCompatibility";
 import ChannelStripe from "./components/ChannelStripe";
 import PaymentsAndFaq from "./components/PaymentsAndFaq";
 import Hero from "./components/Hero";
@@ -61,6 +62,7 @@ export default function App() {
 
         {/* SECTION 5: CUSTOMER LOVE LETTERS REVIEWS (Black rounded section with user avatars and star reviews) */}
         <Testimonials />
+        <DeviceCompatibility onPricingClick={() => scrollToSection("pricing-section")} />
 
         {/* SECTION 6: PAYMENT METHODS GRID & FAQ GUIDES ACCORDION */}
         <PaymentsAndFaq />
@@ -85,7 +87,7 @@ export default function App() {
               </span>
             </div>
 
-            <p className="serif-display italic font-light text-lg text-neutral-400 leading-relaxed max-w-sm">
+            <p className="serif-display italic font-light text-lg text-neutral-200 leading-relaxed max-w-sm">
               Der High-Fidelity-Store für digitales Live-Fernsehen. Keine Verträge, absolut minmierte Latenz und erstklassige Server-Verbindungen.
             </p>
 
@@ -96,7 +98,7 @@ export default function App() {
 
           {/* Quick links columns */}
           <div className="md:col-span-3 text-left">
-            <h5 className="serif-display italic font-light text-2xl text-neutral-300 mb-4">
+            <h5 className="serif-display italic font-light text-2xl text-neutral-100 mb-4">
               Abonnements
             </h5>
             <ul className="space-y-2.5 text-sm">
@@ -119,7 +121,7 @@ export default function App() {
           </div>
 
           <div className="md:col-span-3 text-left">
-            <h5 className="serif-display italic font-light text-2xl text-neutral-300 mb-4">
+            <h5 className="serif-display italic font-light text-2xl text-neutral-100 mb-4">
               Inhalte & Support
             </h5>
             <ul className="space-y-2.5 text-sm">
@@ -143,7 +145,7 @@ export default function App() {
 
           {/* Setup notice badge column */}
           <div className="md:col-span-2 text-left">
-            <h5 className="serif-display italic font-light text-2xl text-neutral-300 mb-4">
+            <h5 className="serif-display italic font-light text-2xl text-neutral-100 mb-4">
               Server-Status
             </h5>
             <div className="inline-flex items-center gap-1.5 bg-[#014E45]/40 border border-[#014E45] px-3.5 py-1.5 rounded-full text-[10px] font-mono text-[#FDFDF7] font-bold uppercase tracking-wider animate-pulse">

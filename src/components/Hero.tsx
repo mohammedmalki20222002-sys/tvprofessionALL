@@ -84,7 +84,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
           {/* Middle: headline + description */}
           <div className="flex flex-col gap-3">
             {/* Announcement subtitle */}
-            <p className="serif-display italic font-light text-xl sm:text-2xl text-white/45">
+            <p className="serif-display italic font-light text-xl sm:text-2xl text-white/80">
               Das beste IPTV in Deutschland
             </p>
 
@@ -103,7 +103,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
                   Weltmeisterschaft WM
                 </span>{" "}
                 live — überall in Deutschland mit uns.{" "}
-                <span className="serif-display italic text-white/65">Seien Sie dabei!</span>
+                <span className="serif-display italic text-white/90">Seien Sie dabei!</span>
               </span>
             </h1>
 
@@ -121,7 +121,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
                   {i > 0 && <div className="w-px h-6 bg-white/15" />}
                   <div>
                     <p className="text-xl sm:text-2xl font-black leading-none text-white">{v}</p>
-                    <p className="serif-display italic font-light text-xl text-white/40 mt-0.5">{l}</p>
+                    <p className="serif-display italic font-light text-xl text-white/75 mt-0.5">{l}</p>
                   </div>
                 </div>
               ))}
@@ -151,7 +151,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
               </button>
             </div>
             {/* Displaced tagline */}
-            <p className="serif-display italic font-light text-xl sm:text-2xl text-white/50">
+            <p className="serif-display italic font-light text-xl sm:text-2xl text-white/80">
               auf all deinen Geräten.
             </p>
 

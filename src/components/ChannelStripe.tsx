@@ -128,7 +128,7 @@ export default function ChannelStripe() {
             <span className="text-[9px] font-black font-mono uppercase tracking-[0.28em] text-white/40">🇩🇪</span>
             <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-none">
               Deutsche{" "}
-              <span className="serif-display italic font-light text-white/60">Sender.</span>
+              <span className="serif-display italic font-light text-white/85">Sender.</span>
             </h3>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function ChannelStripe() {
             <span className="text-[9px] font-black font-mono uppercase tracking-[0.28em] text-white/40">🌍</span>
             <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-none">
               Weltweite{" "}
-              <span className="serif-display italic font-light text-white/60">Sender.</span>
+              <span className="serif-display italic font-light text-white/85">Sender.</span>
             </h3>
           </div>
         </div>
