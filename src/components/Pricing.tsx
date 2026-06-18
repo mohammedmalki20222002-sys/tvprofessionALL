@@ -15,6 +15,11 @@ const GREEN_D = "#013d37";
 
 const WA_NUMBER = "447449708976";
 
+function trackWaConversion() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any).gtag?.('event', 'conversion', { send_to: 'AW-18235035269/rSDACJDGwb4cEIWdkvdD' });
+}
+
 function buildWhatsAppUrl(plan: PricingPlan): string {
   const geraete = plan.devices === 1 ? "1 Gerat" : "2 Gerate";
   const preis   = plan.price.toFixed(2).replace(".", ",");
@@ -240,6 +245,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                     href={buildWhatsAppUrl(plan)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={trackWaConversion}
                     className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider
                                flex items-center justify-center gap-2 transition-all duration-200 no-underline
                                hover:opacity-90 hover:scale-[1.02] active:scale-100"
@@ -285,6 +291,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
             );
             return href ? (
               <a key={title} href={href} target="_blank" rel="noopener noreferrer"
+                onClick={trackWaConversion}
                 className="flex items-start gap-3 p-4 rounded-xl text-left no-underline hover:opacity-80 transition-opacity"
                 style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 {inner}
