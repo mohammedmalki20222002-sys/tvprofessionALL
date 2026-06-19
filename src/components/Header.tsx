@@ -64,7 +64,7 @@ export default function Header({
             onClick={onPricingClick}
             className="hidden sm:flex items-center gap-1.5 bg-white hover:bg-white/90 text-[#014E45] px-4 py-2 rounded-full text-xs font-bold transition-all shadow-[0_2px_0_rgba(0,0,0,0.15)] active:translate-y-0.5 active:shadow-none"
           >
-            <span>Jetzt abonnieren</span>
+            <span>IPTV kaufen</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
 
@@ -104,7 +104,7 @@ export default function Header({
             onClick={() => { onPricingClick(); setMobileMenuOpen(false); }}
             className="w-full text-center bg-white text-[#014E45] py-3 rounded-xl text-sm font-bold"
           >
-            Jetzt abonnieren — Tarife anzeigen
+            IPTV kaufen – Tarife anzeigen
           </button>
         </div>
       )}

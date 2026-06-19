@@ -44,9 +44,10 @@ export default function VideoShowcase() {
       {/* Subtitle below video */}
       <div className="px-4 md:px-8 max-w-7xl mx-auto w-full py-6 text-center">
         <p className="text-neutral-900 font-light text-base sm:text-lg md:text-xl leading-relaxed">
-          Über <span className="font-bold">59.000 Live-Sender</span> und{" "}
+          <span className="font-bold">IPTV kaufen</span> & sofort streamen: Über{" "}
+          <span className="font-bold">59.000 Live-Sender</span> und{" "}
           <span className="font-bold">200.000+ VOD</span>
-          <span className="serif-display italic font-light text-neutral-500"> — sofort auf jedem Gerät, ohne Vertrag.</span>
+          <span className="serif-display italic font-light text-neutral-500"> — auf jedem Gerät, ohne Vertrag.</span>
         </p>
       </div>
     </>

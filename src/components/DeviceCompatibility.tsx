@@ -61,6 +61,9 @@ export default function DeviceCompatibility({ onPricingClick }: DeviceCompatibil
               Kompatibel mit{" "}
               <span className="serif-display italic font-light text-[#014E45]">allen Geräten.</span>
             </h2>
+            <p className="serif-display italic font-light text-base text-neutral-500 mt-1">
+              IPTV kaufen – direkt auf Ihrem Smart-TV, Phone oder Box streamen.
+            </p>
           </div>
           <button
             onClick={onPricingClick}

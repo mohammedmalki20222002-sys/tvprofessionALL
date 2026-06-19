@@ -240,7 +240,7 @@ export default function MovieGrid({ onPricingClick }: MovieGridProps) {
             <p className="text-[9px] font-mono text-white/25">Täglich aktualisiert · 200.000+ Titel verfügbar</p>
             <button onClick={onPricingClick}
               className="flex items-center gap-1.5 bg-white text-[#014E45] text-[10px] font-black px-3.5 py-1.5 rounded-full hover:bg-white/90 transition-all shadow-sm">
-              <span>Jetzt anmelden</span>
+              <span>Jetzt IPTV kaufen</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>

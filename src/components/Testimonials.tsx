@@ -28,7 +28,7 @@ export default function Testimonials() {
             <span className="serif-display italic font-light text-white/90 pr-1.5">an IPTV Professional.</span>
           </h2>
           <p className="serif-display italic font-light text-base md:text-xl text-neutral-100 mt-4">
-            Erfahren Sie, wie über 45.000 aktive Abonnenten ihren alten Kabelanschluss durch unsere High-Fidelity- und High-Speed-Streaming-Infrastruktur ersetzt haben.
+            Erfahren Sie, warum über 45.000 Kunden bei uns IPTV kaufen und ihren alten Kabelanschluss durch 4K-Streaming in HD-Qualität ersetzt haben.
           </p>
         </div>
 

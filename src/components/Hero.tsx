@@ -78,7 +78,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
           <div className="flex flex-col gap-3">
             {/* Announcement subtitle */}
             <p className="serif-display italic font-light text-xl sm:text-2xl text-white/80">
-              Das beste IPTV in Deutschland
+              IPTV kaufen – Das Beste in Deutschland
             </p>
 
             {/* Main headline */}
@@ -128,7 +128,7 @@ export default function Hero({ onPricingClick }: HeroProps) {
                 className="flex items-center gap-2 bg-white text-[#014E45] font-extrabold text-sm px-6 py-2.5 rounded-full
                            shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-0.5 active:shadow-none hover:bg-white/90 transition-all"
               >
-                <span>Jetzt Tarif wählen</span>
+                <span>Jetzt IPTV kaufen</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button

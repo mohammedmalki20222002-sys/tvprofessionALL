@@ -634,5 +634,10 @@ export const FAQS: FAQItem[] = [
     id: "f5",
     question: "Gibt es Verträge oder versteckte Einrichtungsgebühren?",
     answer: "Nein, es gibt keine laufenden Verträge, keine Einrichtungsgebühren und kein automatisches Abonnement mit Abbuchung. Sie zahlen nur einmalig für den gewählten Zeitraum (3, 6 oder 12 Monate) und verlängern manuell, wenn Sie fortfahren möchten."
+  },
+  {
+    id: "f6",
+    question: "Wo kann ich seriös IPTV kaufen?",
+    answer: "IPTV kaufen Sie sicher bei TV Professional – einem verifizierten Anbieter mit über 45.000 aktiven Kunden in Deutschland. Der Kauf erfolgt schnell per WhatsApp, Zahlung per PayPal, Kreditkarte, SEPA oder Klarna, und die Freischaltung erfolgt innerhalb weniger Minuten."
   }
 ];

@@ -221,7 +221,7 @@ export default function LiveSports({ onPricingClick }: LiveSportsProps) {
               className="flex items-center gap-2 bg-white text-[#014E45] font-extrabold text-sm px-6 py-2.5 rounded-full
                          shadow-[0_4px_0_rgba(0,0,0,0.25)] active:translate-y-0.5 active:shadow-none hover:bg-white/90 transition-all shrink-0"
             >
-              <span>Jetzt Tarif wählen</span>
+              <span>Jetzt IPTV kaufen</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

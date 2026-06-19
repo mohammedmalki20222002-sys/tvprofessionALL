@@ -74,7 +74,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
         {/* ── Heading ───────────────────────────────────────────────────── */}
         <div className="max-w-xl mx-auto mb-10 text-center">
           <span className="serif-display italic font-light text-2xl text-white/80 mb-3 block">
-            Premium Abonnements
+            IPTV kaufen – Premium Abonnements
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-white">
             Wähle deinen
@@ -92,7 +92,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
             </span>
           </h2>
           <p className="serif-display italic font-light text-base md:text-xl text-white/75 mt-4 leading-relaxed">
-            Keine automatische Verlängerung. Deine Laufzeit, deine Regeln — sicher, schnell und weltweit verfügbar.
+            IPTV kaufen ohne Risiko: Keine automatische Verlängerung. Deine Laufzeit, deine Regeln — sicher, schnell und weltweit verfügbar.
           </p>
         </div>
 
@@ -260,7 +260,7 @@ export default function Pricing({ onSelectPlan: _unused }: PricingProps) {
                     }}
                   >
                     <MessageCircle className="w-3.5 h-3.5 shrink-0" />
-                    <span>Jetzt kaufen</span>
+                    <span>Jetzt IPTV kaufen</span>
                   </a>
 
                 </div>
